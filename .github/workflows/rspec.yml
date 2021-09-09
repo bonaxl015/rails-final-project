@@ -58,6 +58,9 @@ jobs:
           
       - name: Setup Database
         run: |
+          sudo apt-get -yqq install libpq-dev
+          gem install bundler
+          bundle install --jobs 4 --retry 3
           yarn install --check-files
           bundle exec rake db:create
           bundle exec rake db:schema:load
