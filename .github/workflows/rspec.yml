@@ -58,7 +58,6 @@ jobs:
           bundle install --jobs 4 --retry 3
           npm install -g yarn
           yarn install --check-files
-          npm ci
           
       - name: Setup Database
         run: |
