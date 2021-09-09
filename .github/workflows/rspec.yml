@@ -63,7 +63,8 @@ jobs:
           PGUSER: 'postgres'
           PGPASSWORD: 'test'
         run: |
-          rails db:setup
+          bundle exec rails db:create
+          bundle exec rails db:schema:load
           
       - name: Run Rubocop
         run: bundle exec rubocop
