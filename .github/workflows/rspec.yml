@@ -54,6 +54,7 @@ jobs:
       
       - name: Install dependencies
         run: |
+          sudo apt-get -yqq install libpq-dev
           gem install bundler
           bundle install --jobs 4 --retry 3
           npm install -g yarn
@@ -61,7 +62,6 @@ jobs:
           
       - name: Setup Database
         run: |
-          node client.js
           bundle exec rake db:create
           bundle exec rake db:schema:load
         env:
