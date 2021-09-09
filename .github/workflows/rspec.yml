@@ -60,15 +60,11 @@ jobs:
           bundle install --jobs 4 --retry 3
 
       - name: Setup Database
-	run: |
-	  cp config/database.yml.sample config/database.yml
-          bundle exec rake db:create
-          bundle exec rake db:schema:load
-        env:
-          POSTGRES_HOST: 127.0.0.1
-          POSTGRES_USER: 'postgres'
-          POSTGRES_PASSWORD: 'test'
-          
+        run: |
+         cp config/database.yml
+         bundle exec rake db:create
+         bundle exec rake db:schema:load
+
       - name: Run Rubocop
         run: bundle exec rubocop
         
