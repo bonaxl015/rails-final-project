@@ -9,12 +9,12 @@ default: &default
 
 development:
   <<: *default
-  database: rails_project_dev
+  database: rails_proj_dev
 
 test:
   <<: *default
-  database: rails_project_test
+  database: rails_proj_test
 
 production:
   <<: *default
-  detabase: rails_project_prod
+  detabase: rails_proj_prod
