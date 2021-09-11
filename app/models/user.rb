@@ -12,4 +12,13 @@ class User < ApplicationRecord
   has_many :user_roles, dependent: :destroy
   has_many :roles, through: :user_roles
   has_many :posts
+  after_save :add_default_role
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
+  def add_default_role
+    User.find_by(id: id).roles << Role.find_by(role: 'Ordinary')
+  end
 end
