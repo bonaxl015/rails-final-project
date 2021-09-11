@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     collection do
       get :news_feed
       get :profile
+      post :create_post
     end
   end
 end
