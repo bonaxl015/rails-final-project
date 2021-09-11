@@ -1,0 +1,13 @@
+.nav.navbar.navbar-dark.bg-maroon
+  .container-fluid.container
+    - if user_signed_in?
+      = link_to 'Stellargram', news_feed_dashboard_index_path, class: 'navbar-brand'
+    - else
+      = link_to 'Stellargram', static_home_path, class: 'navbar-brand'
+    .d-flex
+      - if user_signed_in?
+        = link_to 'Home', news_feed_dashboard_index_path, class: 'nav-link'
+        = link_to 'Profile', profile_dashboard_index_path, class: 'nav-link'
+        = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'nav-link'
+      - else
+        = link_to 'Sign in', new_user_session_path, class: 'nav-link'

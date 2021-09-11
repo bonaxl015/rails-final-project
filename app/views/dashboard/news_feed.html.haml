@@ -1,0 +1,7 @@
+= render 'create_post'
+
+- @posts.each do |post|
+  %h5= post.user.username
+  %p= post.caption
+  - if post.image.present?
+    %p display image

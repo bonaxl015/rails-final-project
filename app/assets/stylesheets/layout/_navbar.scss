@@ -1,0 +1,12 @@
+.bg-maroon {
+  background-color: #800000;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+  &:hover {
+    color: #fff;
+    transform: scale(1.1);
+  }
+}
