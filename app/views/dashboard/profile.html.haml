@@ -1,0 +1,7 @@
+%h1= @user.username
+
+- @user_posts.each do |post|
+  %h5= post.user.username
+  %p= post.caption
+  - if post.image.present?
+    %p display image
