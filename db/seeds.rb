@@ -35,3 +35,21 @@ UserRole.create( user_id: admin.id, role_id: moderator_role.id )
 UserRole.create( user_id: moderator.id, role_id: moderator_role.id )
 UserRole.create( user_id: moderator.id, role_id: ordinary_role.id )
 UserRole.create( user_id: ordinary.id, role_id: ordinary_role.id )
+
+Post.create(
+  caption: 'Hello milky way galaxy',
+  image: '',
+  user_id: ordinary.id
+)
+
+Post.create(
+  caption: 'Hello milky way galaxy 2',
+  image: '',
+  user_id: ordinary.id
+)
+
+Post.create(
+  caption: 'Hello milky way galaxy 3',
+  image: '',
+  user_id: ordinary.id
+)
