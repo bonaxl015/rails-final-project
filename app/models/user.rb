@@ -19,6 +19,6 @@ class User < ApplicationRecord
   end
 
   def add_default_role
-    User.find_by(id: id).roles << Role.find_by(role: 'Ordinary')
+    User.find_by(id: id).roles << Role.create(role: 'Ordinary')
   end
 end

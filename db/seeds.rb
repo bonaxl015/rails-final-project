@@ -28,13 +28,10 @@ ordinary = User.create( email: 'bon@example.com',
 
 admin_role = Role.create(role: 'Admin')
 moderator_role = Role.create(role: 'Moderator')
-ordinary_role = Role.create(role: 'Ordinary')
 
 UserRole.create( user_id: admin.id, role_id: admin_role.id )
 UserRole.create( user_id: admin.id, role_id: moderator_role.id )
 UserRole.create( user_id: moderator.id, role_id: moderator_role.id )
-UserRole.create( user_id: moderator.id, role_id: ordinary_role.id )
-UserRole.create( user_id: ordinary.id, role_id: ordinary_role.id )
 
 Post.create(
   caption: 'Hello milky way galaxy',
