@@ -11,6 +11,7 @@ import "bootstrap"
 import "jquery"
 import "jquery-ui"
 import "packs/head"
+import "component/createPostButton"
 
 Rails.start()
 // Turbolinks.start()
