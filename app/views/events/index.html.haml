@@ -1,0 +1,30 @@
+.container
+  = link_to "Add Event", new_event_path
+  = link_to "Back", events_all_path
+  %h2 My Events
+  .d-flex.justify-content-evenly.flex-wrap
+    - unless @user_events.count == 0
+      - @user_events.each do |user_event|
+        .card
+          .card-body
+            %h5.card-title= user_event.name
+            %p.card-text= user_event.description
+            %p.card-text= user_event.date
+            = link_to 'Show', event_path(user_event)
+            - if can? :manage, user_event
+              = link_to 'Edit', edit_event_path(user_event)
+              = link_to 'Delete', user_event, method: :delete, data: { confirm: 'Are you sure?' }
+    - else
+      %p You haven't organized any events yet.
+  %h2 Events to Attend
+  .d-flex.justify-content-evenly.flex-wrap
+    - @events.each do |event|
+      - if attendee(event)
+        .card
+          .card-body
+            %h5.card-title= event.name
+            %p.card-text= event.description
+            %p.card-text= event.date
+      - else
+        %p You are not attending any events yet.
+

@@ -10,4 +10,8 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(_resource)
     news_feed_dashboard_index_path
   end
+
+  rescue_from CanCan::AccessDenied do |e|
+    redirect_to main_app.root_path, alert: e.message
+  end
 end
