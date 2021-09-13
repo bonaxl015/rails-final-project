@@ -16,10 +16,10 @@ class AttendsController < ApplicationController
   def destroy
     @attend.destroy if @event.user_id == current_user.id
 
-    unless already_attending?
-      flash[:notice] = 'You are already not attending this event.'
-    else
+    if already_attending?
       @attend.destroy
+    else
+      flash[:notice] = 'You are already not attending this event.'
     end
 
     redirect_to event_path(@event)

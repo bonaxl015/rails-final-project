@@ -10,9 +10,7 @@ class Ability
 
     if user.roles.any? { |r| r[:role] == 'Admin' }
       can :manage, :all
-    elsif user.roles.any? { |r| r[:role] == 'Moderator' }
-      can :manage, Event, user_id: user.id
-    elsif user.roles.any? { |r| r[:role] == 'Ordinary' }
+    else
       can :manage, Event, user_id: user.id
     end
     #

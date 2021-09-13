@@ -1,7 +1,7 @@
 module AttendsHelper
   def already_attending?
-    Attend.where(user_id: current_user.id,
-                 event_id: params[:event_id]).exists?
+    Attend.exists?(user_id: current_user.id,
+                   event_id: params[:event_id])
   end
 
   def attendee(event)
