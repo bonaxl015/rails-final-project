@@ -26,6 +26,12 @@ ordinary = User.create( email: 'bon@example.com',
                         last_name: 'Feeser'
 )
 
+ordinary2 = User.create( email: 'jane@example.com',
+                         password: 'testtest',
+                         username: 'janedoe',
+                         first_name: 'Jane',
+                         last_name: 'Doe')
+
 admin_role = Role.create(role: 'Admin')
 moderator_role = Role.create(role: 'Moderator')
 
@@ -49,4 +55,16 @@ Post.create(
   caption: 'Hello milky way galaxy 3',
   image: '',
   user_id: ordinary.id
+)
+
+event = Event.create(
+  name: 'Sample Event',
+  description: 'Sample Event Description',
+  date: Time.zone.tomorrow,
+  user_id: ordinary2.id
+)
+
+Attend.create(
+  user_id: ordinary.id,
+  event_id: event.id
 )
