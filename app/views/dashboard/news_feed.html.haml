@@ -1,7 +1,21 @@
-= render 'create_post'
-
-- @posts.each do |post|
-  %h5= post.user.username
-  %p= post.caption
-  - if post.image.present?
-    %p display image
+.news-feed-body
+  .container
+    .row
+      .col-8
+        .post-form
+          = render 'create_post'
+        - @posts.each do |post|
+          .post-card
+            .post-text
+              .username-bold= post.user.username
+              .distance-date= distance_of_time_posted_in_words(post.created_at, Time.now)
+              .caption= post.caption
+            - if post.image.present?
+              = image_tag post.image.url, class: 'img img-fluid'
+      .col-4
+        .event-items
+          .event-padding
+            .event-title Events
+        .news-items
+          .news-padding
+            .news-title Latest News

@@ -1,0 +1,8 @@
+.btn-maroon {
+  background-color: #800000;
+  color: #FFF;
+  &:hover {
+    background-color: #a80000;
+    color: #FFF;
+  }
+}
