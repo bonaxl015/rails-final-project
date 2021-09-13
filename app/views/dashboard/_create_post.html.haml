@@ -1,4 +1,8 @@
 = form_with url: create_post_dashboard_index_path do |f|
-  = f.text_field :caption, class: "form-control", id: "caption", placeholder: "Share something..."
-  = f.file_field :image, class: "form-control", id: "caption"
-  = f.submit :Post, class: "btn btn-success"
+  = f.text_area :caption, class: "text-area", id: "caption", placeholder: "Share something..."
+  .form-bottom-button-container
+    .d-flex
+      .p-2.flex-grow-1
+        = f.file_field :image, class: "form-control", id: "image-file"
+      .p-2
+        = f.submit :Post, class: "btn btn-maroon", id: "create-post-button"
