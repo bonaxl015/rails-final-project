@@ -9,6 +9,7 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "bootstrap"
 import "jquery"
+import "component/createPostButton"
 
 Rails.start()
 Turbolinks.start()
