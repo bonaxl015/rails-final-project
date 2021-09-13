@@ -1,0 +1,12 @@
+= form_with model: @event do |f|
+  .form-floating
+    = f.text_field :name, class: "form-control", placeholder: "Event"
+    = f.label :name
+  .form-floating
+    = f.text_area :description, class: "form-control", placeholder: "Description"
+    = f.label :description
+  .form-floating
+    = f.datetime_field :date, id: 'datepicker', class: "form-control", type: "", placeholder: "Date"
+    = f.label :date
+  .d-flex
+    = f.submit "Add Event"
