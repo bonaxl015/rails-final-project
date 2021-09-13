@@ -17,6 +17,7 @@ gem 'hamlit-rails'
 gem 'html2haml', '~> 2.2'
 gem 'carrierwave', '~> 2.0'
 gem 'mini_magick'
+gem 'cloudinary'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
