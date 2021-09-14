@@ -10,8 +10,7 @@ import "channels"
 import "bootstrap"
 import "jquery"
 import "jquery-ui"
-import "packs/head"
-import "component/createPostButton"
+import "packs/main"
 
 Rails.start()
 // Turbolinks.start()
