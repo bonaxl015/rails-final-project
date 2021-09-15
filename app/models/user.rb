@@ -12,6 +12,10 @@ class User < ApplicationRecord
   has_many :user_roles, dependent: :destroy
   has_many :roles, through: :user_roles
   has_many :posts, dependent: :destroy
+  has_many :given_follows, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy
+  has_many :followed_users, through: :given_follows, source: :followed_user
+  has_many :received_follows, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
+  has_many :follower_users, through: :received_follows, source: :follower_user
   after_save :add_default_role
 
   def full_name
@@ -20,5 +24,17 @@ class User < ApplicationRecord
 
   def add_default_role
     User.find_by(id: id).roles << Role.create(role: 'Ordinary')
+  end
+
+  def follow(user)
+    given_follows.create(followed_id: user.id)
+  end
+
+  def unfollow(user)
+    given_follows.find_by(followed_id: user.id).destroy
+  end
+
+  def following?(user)
+    followed_users.include?(user)
   end
 end
