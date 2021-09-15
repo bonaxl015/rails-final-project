@@ -11,27 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2021_09_12_135900) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "attends", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "event_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_attends_on_event_id"
-    t.index ["user_id"], name: "index_attends_on_user_id"
-  end
-
-  create_table "events", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.datetime "date"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_events_on_user_id"
-  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -59,6 +41,25 @@ ActiveRecord::Schema.define(version: 2021_09_12_135900) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "attends", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_attends_on_event_id"
+    t.index ["user_id"], name: "index_attends_on_user_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "date"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -101,12 +102,11 @@ ActiveRecord::Schema.define(version: 2021_09_12_135900) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "attends", "events"
   add_foreign_key "attends", "users"
   add_foreign_key "events", "users"
-  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "posts", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
