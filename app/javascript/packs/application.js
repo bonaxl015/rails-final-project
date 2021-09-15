@@ -8,9 +8,11 @@ import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "bootstrap"
+import "@fortawesome/fontawesome-free/css/all"
 import "jquery"
 import "jquery-ui"
 import "packs/main"
+import "packs/home"
 
 Rails.start()
 // Turbolinks.start()
