@@ -1,0 +1,47 @@
+.home-bg {
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url("/space-rocket.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.home-text-display {
+  position: relative;
+  width: 80%;
+  color: #FFF;
+  font-size: 2.4rem;
+  font-weight: 500;
+  margin-left: 50px;
+  top: 32%;
+}
+
+.user-form-container {
+  width: 300px;
+  color: #FFF;
+  background-color: #800000;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.user-form-title {
+  text-align: center;
+  color: #FFF;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.full-height-container {
+  height: 100vh;
+}
+
+.hidden {
+  display: none;
+}
