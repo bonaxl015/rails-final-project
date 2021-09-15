@@ -1,3 +1,12 @@
-%h1 Stellargram
-#sign-in-form
-  = render 'sign_in'
+.home-bg
+  .row
+    .col-5.full-height-container
+      .d-flex.justify-content-center.align-items-center.full-height-container
+        .user-form-container
+          #sign-in-form.hidden
+            = render 'sign_in'
+          #sign-up-form
+            = render 'sign_up'
+    .col-2
+    .col-5.full-height-container
+      .home-text-display Connect with Astronauts, Astrophiles and Astronomy Enthusiasts around the universe
