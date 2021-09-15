@@ -10,7 +10,8 @@ import "channels"
 import "bootstrap"
 import "jquery"
 import "jquery-ui"
-import "packs/main"
+import "packs/datepicker"
+import "packs/news-feed"
 
 Rails.start()
 // Turbolinks.start()
