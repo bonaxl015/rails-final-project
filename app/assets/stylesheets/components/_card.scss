@@ -5,3 +5,45 @@
   border: 1px solid #999;
   border-radius: 10px;
 }
+
+.event-items {
+  background: #FFF;
+  text-align: left;
+  margin-bottom: 20px;
+  border: 1px solid #999;
+  border-radius: 10px;
+}
+
+.event-padding {
+  padding: 12px 20px;
+}
+
+.event-title {
+  color: #800000;
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-decoration: none;
+
+  &:hover {
+    color: hsl(0, 100%, 32%);
+    text-decoration: none;
+  }
+}
+
+.news-items {
+  background: #FFF;
+  text-align: left;
+  margin-bottom: 20px;
+  border: 1px solid #999;
+  border-radius: 10px;
+}
+
+.news-padding {
+  padding: 12px 20px;
+}
+
+.news-title {
+  color: #800000;
+  font-weight: 600;
+  font-size: 1.2rem;
+}

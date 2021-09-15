@@ -1,4 +1,5 @@
 class AttendsController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_event
   before_action :find_attend, only: :destroy
   include AttendsHelper

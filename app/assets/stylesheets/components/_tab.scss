@@ -1,0 +1,17 @@
+#following,
+#followers {
+  cursor: pointer;
+
+  &.active {
+    & + .relationship-modal {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+.relationship-modal {
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s;
+}

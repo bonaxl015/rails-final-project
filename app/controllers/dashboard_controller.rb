@@ -5,11 +5,6 @@ class DashboardController < ApplicationController
     @posts = Post.all.order(created_at: :desc).includes(:user)
   end
 
-  def profile
-    @user = User.find_by(id: current_user.id)
-    @user_posts = Post.where(user_id: current_user.id).order(created_at: :desc).includes(:user)
-  end
-
   def create_post
     @post = current_user.posts.build(post_params)
     respond_to do |format|

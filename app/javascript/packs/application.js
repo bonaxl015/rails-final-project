@@ -11,8 +11,10 @@ import "bootstrap"
 import "@fortawesome/fontawesome-free/css/all"
 import "jquery"
 import "jquery-ui"
-import "packs/main"
 import "packs/home"
+import "packs/datepicker"
+import "packs/news-feed"
+import "packs/profile"
 
 Rails.start()
 // Turbolinks.start()
