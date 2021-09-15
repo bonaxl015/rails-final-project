@@ -12,6 +12,7 @@ import "jquery"
 import "jquery-ui"
 import "packs/datepicker"
 import "packs/news-feed"
+import "packs/profile"
 
 Rails.start()
 // Turbolinks.start()
