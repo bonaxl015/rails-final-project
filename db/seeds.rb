@@ -32,6 +32,12 @@ ordinary2 = User.create( email: 'jane@example.com',
                          first_name: 'Jane',
                          last_name: 'Doe')
 
+ordinary3 = User.create( email: 'juan@example.com',
+                         password: 'testtest',
+                         username: 'juandcruz',
+                         first_name: 'Juan',
+                         last_name: 'Dela Cruz')
+
 admin_role = Role.create(role: 'Admin')
 moderator_role = Role.create(role: 'Moderator')
 
@@ -41,19 +47,16 @@ UserRole.create( user_id: moderator.id, role_id: moderator_role.id )
 
 Post.create(
   caption: 'Hello milky way galaxy',
-  image: '',
   user_id: ordinary.id
 )
 
 Post.create(
   caption: 'Hello milky way galaxy 2',
-  image: '',
   user_id: ordinary.id
 )
 
 Post.create(
   caption: 'Hello milky way galaxy 3',
-  image: '',
   user_id: ordinary.id
 )
 
@@ -68,3 +71,6 @@ Attend.create(
   user_id: ordinary.id,
   event_id: event.id
 )
+
+Relationship.create(follower_id: ordinary2.id, followed_id: ordinary.id)
+Relationship.create(follower_id: ordinary3.id, followed_id: ordinary.id)
