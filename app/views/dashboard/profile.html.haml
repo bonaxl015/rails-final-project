@@ -1,8 +1,30 @@
-%h1= @user.username
-%h2= @user.full_name
-
-- @user_posts.each do |post|
-  %h5= post.user.username
-  %p= post.caption
-  - if post.image.present?
-    %p display image
+.profile-body
+  .container
+    .row
+      .col-3
+      .col-9
+        .profile-container
+          .profile-full-name= @user.full_name
+          .profile-username= @user.username
+          .profile-stats
+            = pluralize(@user.posts.count, 'post')
+    .row
+      .col-8
+        - @user_posts.each do |post|
+          .post-card
+            .post-text
+              .username-bold= post.user.username
+              .distance-date= distance_of_time_posted_in_words(post.created_at, Time.now)
+              .caption= post.caption
+            - if post.image.present?
+              = image_tag post.image.url, class: 'img img-fluid'
+      .col-4
+        .event-items
+          .event-padding
+            - if true
+              .event-title No attended events
+            - else
+              .event-title Events Reminders
+        .news-items
+          .news-padding
+            .news-title Latest News
