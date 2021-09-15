@@ -5,7 +5,7 @@
   %ul
     - @user.given_follows.each do |given_follow|
       - User.where(id: given_follow.followed_id).each do |user|
-        %li= link_to full_name(user), profile_path(user.id)
+        %li= link_to full_name(user), profile_path(user.username)
 
 %h2 Followers
 - if @user.received_follows.count == 0
@@ -14,4 +14,4 @@
   %ul
     - @user.received_follows.each do |received_follow|
       - User.where(id: received_follow.follower_id).each do |user|
-        %li= link_to full_name(user), profile_path(user.id)
+        %li= link_to full_name(user), profile_path(user.username)
