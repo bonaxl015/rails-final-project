@@ -1,13 +1,9 @@
-%h2 Log in
+.user-form-title Log in
 = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label :password
-    %br/
-    = f.password_field :password, autocomplete: "current-password"
-  .actions
-    = f.submit "Log in"
-= link_to "Sign up", new_registration_path(resource_name)
+  .mb-3
+    = f.email_field :email, autofocus: true, autocomplete: "email", id: "sign-in-email", placeholder: "Enter email", class: "form-control"
+  .mb-3
+    = f.password_field :password, autocomplete: "current-password", id: "sign-in-password", placeholder: "Password", class: "form-control"
+  .mb-3
+    = f.submit "Log in", class: "btn btn-success btn-wide"
+#signup.btn.btn-success.btn-wide Sign up
