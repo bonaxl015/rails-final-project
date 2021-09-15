@@ -12,7 +12,10 @@
   %body
     - if !display_headers?(controller.controller_name)
       = render 'layouts/header'
-    .container
-      .row
-        .col-lg-12
-          = yield
+    -if controller.controller_name == 'static'
+      = yield
+    - else
+      .container
+        .row
+          .col-lg-12
+            = yield
