@@ -1,18 +1,17 @@
-.container
-  = link_to "Back", events_all_path
-  %p= @event.name
-  %p= @event.description
-  %p= @event.date
-  %p= "Organizer: #{@event.user.first_name.upcase_first} #{@event.user.last_name.upcase_first}"
-  - unless @event.user_id == current_user.id
-    - if attendee(@event)
-      = button_to 'Cancel', event_attend_path(@event, attendee(@event)), method: :delete
-    - else
-      = button_to 'Attend', event_attends_path(@event), method: :post
-  %p= "Number of Attendees: #{@event.attends.count}"
-  - @event.attends.each do |attendee|
-    - if @event.user_id == current_user.id
-      %p.d-inline-block= "#{attendee.user.first_name.upcase_first} #{attendee.user.last_name.upcase_first}"
-      .d-inline-block= button_to 'Kick', event_attend_path(@event, kick_attendee(@event, attendee.user.id)), method: :delete
-    - else
-      %p= "#{attendee.user.first_name.upcase_first} #{attendee.user.last_name.upcase_first}"
+= link_to "Back", all_events_path
+%p= @event.name
+%p= @event.description
+%p= @event.date
+%p= "Organizer: #{@event.user.first_name.upcase_first} #{@event.user.last_name.upcase_first}"
+- unless @event.user_id == current_user.id
+  - if attendee(@event)
+    = button_to 'Cancel', event_attend_path(@event, attendee(@event)), method: :delete
+  - else
+    = button_to 'Attend', event_attends_path(@event), method: :post
+%p= "Number of Attendees: #{@event.attends.count}"
+- @event.attends.each do |attendee|
+  - if @event.user_id == current_user.id
+    %p.d-inline-block= full_name(attendee.user)
+    .d-inline-block= button_to 'Kick', event_attend_path(@event, kick_attendee(@event, attendee.user.id)), method: :delete
+  - else
+    %p= full_name(attendee.user)
