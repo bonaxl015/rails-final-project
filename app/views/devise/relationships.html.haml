@@ -1,0 +1,17 @@
+%h2 Following
+- if @user.given_follows.count == 0
+  %p You haven't followed anyone yet.
+- else
+  %ul
+    - @user.given_follows.each do |given_follow|
+      - User.where(id: given_follow.followed_id).each do |user|
+        %li= link_to full_name(user), profile_path(user.id)
+
+%h2 Followers
+- if @user.received_follows.count == 0
+  %p No one has followed you yet.
+- else
+  %ul
+    - @user.received_follows.each do |received_follow|
+      - User.where(id: received_follow.follower_id).each do |user|
+        %li= link_to full_name(user), profile_path(user.id)
