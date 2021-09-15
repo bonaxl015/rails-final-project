@@ -3,12 +3,12 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def profile
-    @user = User.find(params[:id])
-    @user_posts = Post.where(user_id: params[:id]).order(created_at: :desc).includes(:user)
+    @user = User.friendly.find(params[:id])
+    @user_posts = Post.where(user_id: @user).order(created_at: :desc).includes(:user)
   end
 
   def relationships
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
   end
 
   def configure_permitted_parameters

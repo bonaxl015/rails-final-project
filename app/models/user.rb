@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  extend FriendlyId
+  friendly_id :username, use: :slugged
   validates :username, presence: true,
                        uniqueness: { case_sensitive: false },
                        length: { minimum: 3 },
