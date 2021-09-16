@@ -1,16 +1,49 @@
-%h1= @user.username
-%h2= @user.full_name
-%p= link_to "#{@user.followed_users.count} Following | #{@user.follower_users.count} #{@user.follower_users.count <= 1 ? 'Follower' : 'Followers'}", relations_path(@user)
-- if @user == current_user
-  = link_to "My Events", events_path
-- unless @user == current_user
-  - if current_user.following?(@user)
-    = button_to "Unfollow", relationship_path(user_id: @user.id), method: :delete
-  - else
-    = button_to "Follow", relationships_path(user_id: @user.id), method: :post
-
-- @user_posts.each do |post|
-  %h5= post.user.username
-  %p= post.caption
-  - if post.image.present?
-    %p display image
+.profile-body
+  .container
+    .row.profile-container
+      .col-2
+      .col-10
+        .profile-full-name= @user.full_name
+        .profile-username= @user.username
+        .profile-stats
+          %scan.text-maroon= pluralize(@user.posts.count, "Post")
+          = link_to "| #{@user.followed_users.count} Following | #{pluralize(@user.follower_users.count, "Follower")}", relations_path(@user)
+        .profile-buttons
+          - if @user == current_user
+            = link_to "My Events", events_path, class: "btn btn-maroon"
+            = link_to "Edit Profile", edit_user_registration_path, class: "btn btn-maroon"
+          - unless @user == current_user
+            - if current_user.following?(@user)
+              = link_to "Unfollow", relationship_path(user_id: @user.id), method: :delete, class: "btn btn-maroon"
+            - else
+              = link_to "Follow", relationships_path(user_id: @user.id), method: :post, class: "btn btn-maroon"
+    .row
+      .col-8
+        -if @user_posts.empty?
+          .post-card
+            .post-text
+              .no-post-text No posts to show
+        - else 
+          - @user_posts.each do |post|
+            .post-card
+              .post-text
+                .d-flex.justify-content-between
+                  .username-bold= link_to @user.username, profile_path(@user.username)
+                  .post-edit-delete
+                    - if post.user.username == current_user.username
+                      = link_to "Edit", edit_post_path(post), class: "text-space"
+                      = link_to "Delete", post, method: :delete, class: "text-space"
+                .distance-date= distance_of_time_posted_in_words(post.created_at)
+                .caption= post.caption
+              - if post.image.present?
+                = image_tag post.image.url, class: 'img img-fluid'
+      .col-4
+        .event-items
+          .event-padding
+            - if true
+              .event-title No attended events
+            - else
+              .event-title Events Reminders
+        .news-items
+          .news-padding
+            .news-title Latest News
