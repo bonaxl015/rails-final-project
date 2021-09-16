@@ -13,7 +13,7 @@ import "jquery"
 import "jquery-ui"
 import "packs/home"
 import "packs/datepicker"
-import "packs/news-feed"
+import "packs/post"
 import "packs/profile"
 
 Rails.start()

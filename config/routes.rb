@@ -11,12 +11,7 @@ Rails.application.routes.draw do
     get 'users/:id/relationships' => 'devise#relationships', as: 'relations'
   end
 
-  resources :dashboard, only: %i[news_feed create_post] do
-    collection do
-      get :news_feed
-      post :create_post
-    end
-  end
+  resources :posts, except: %i[show new]
 
   resources :events do
     collection do

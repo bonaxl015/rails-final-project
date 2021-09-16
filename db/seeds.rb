@@ -1,3 +1,5 @@
+Attend.delete_all
+Event.delete_all
 Post.delete_all
 UserRole.delete_all
 User.delete_all

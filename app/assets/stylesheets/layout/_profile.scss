@@ -1,5 +1,5 @@
 .profile-body {
-  margin-top: 100px;
+  margin-top: 20px;
 }
 
 .profile-full-name {
@@ -15,4 +15,23 @@
 
 .profile-container {
   margin-bottom: 20px;
+}
+
+.profile-stats {
+  margin-bottom: 10px;
+}
+
+.edit-profile-form-container {
+  margin-top: 20px;
+  width: 600px;
+  color: #FFF;
+  background-color: #800000;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.no-post-text {
+  color: #333;
+  font-weight: 600;
+  text-align: center;
 }
