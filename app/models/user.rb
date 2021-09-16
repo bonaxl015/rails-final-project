@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   extend FriendlyId
-  friendly_id :username, use: :slugged
+  friendly_id :username, use: %i[slugged history finders]
   validates :username, presence: true,
                        uniqueness: { case_sensitive: false },
                        length: { minimum: 3 },
@@ -26,6 +26,10 @@ class User < ApplicationRecord
 
   def add_default_role
     User.find_by(id: id).roles << Role.create(role: 'Ordinary')
+  end
+
+  def should_generate_new_friendly_id?
+    username_changed?
   end
 
   def follow(user)
