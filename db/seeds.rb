@@ -1,3 +1,4 @@
+Post.delete_all
 UserRole.delete_all
 User.delete_all
 Role.delete_all
@@ -31,6 +32,7 @@ ordinary = User.create( email: 'bon@example.com',
 
 ordinary2 = User.create( email: 'jane@example.com',
                          password: 'testtest',
+                         password_confirmation: 'testtest',
                          username: 'janedoe',
                          first_name: 'Jane',
                          last_name: 'Doe',
@@ -52,16 +54,19 @@ UserRole.create( user_id: moderator.id, role_id: moderator_role.id )
 
 Post.create(
   caption: 'Hello milky way galaxy',
+  image: nil,
   user_id: ordinary.id
 )
 
 Post.create(
   caption: 'Hello milky way galaxy 2',
+  image: nil,
   user_id: ordinary.id
 )
 
 Post.create(
   caption: 'Hello milky way galaxy 3',
+  image: nil,
   user_id: ordinary.id
 )
 

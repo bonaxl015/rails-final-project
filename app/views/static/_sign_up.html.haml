@@ -1,0 +1,17 @@
+.user-form-title Sign up for free!
+= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  .mb-3
+    = f.text_field :username, autofocus: true, id: "username" , placeholder: "User Name", class: "form-control"
+  .mb-3
+    = f.text_field :first_name, autofocus: true, id: "first-name" , placeholder: "First Name", class: "form-control"
+  .mb-3
+    = f.text_field :last_name, autofocus: true, id: "last-name" , placeholder: "Last Name", class: "form-control"
+  .mb-3
+    = f.email_field :email, autofocus: true, autocomplete: "sign-up-email", id: "email" , placeholder: "Email", class: "form-control"
+  .mb-3
+    = f.password_field :password, autocomplete: "new-password", id: "sign-uppassword" , placeholder: "Password", class: "form-control"
+  .mb-3
+    = f.password_field :password_confirmation, autocomplete: "new-password", id: "confirm-password" , placeholder: "Confirm Password", class: "form-control"
+  .mb-3
+    = f.submit "Sign up", class: "btn btn-success btn-wide"
+#login.btn.btn-success.btn-wide Log in
