@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(_resource)
-    news_feed_dashboard_index_path
+    posts_path
   end
 
   rescue_from CanCan::AccessDenied do |e|
