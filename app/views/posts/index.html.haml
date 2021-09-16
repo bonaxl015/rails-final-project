@@ -1,0 +1,31 @@
+.news-feed-body
+  .container
+    .row
+      .col-8
+        .post-form
+          = render "post_form"
+        - if @posts.empty?
+          .post-card
+            .post-text
+              .no-post-text No posts to show
+        - else
+          - @posts.each do |post|
+            .post-card
+              .post-text
+                .d-flex.justify-content-between
+                  .username-bold= link_to post.user.username, profile_path(post.user.username)
+                  .post-edit-delete
+                    - if post.user.username == current_user.username
+                      = link_to "Edit", edit_post_path(post), class: "text-space"
+                      = link_to "Delete", post, method: :delete, class: "text-space"
+                .distance-date= distance_of_time_posted_in_words(post.created_at)
+                .caption= post.caption
+              - if post.image.present?
+                = image_tag post.image.url, class: "img img-fluid"
+      .col-4
+        .event-items
+          .event-padding
+            = link_to "Events", all_events_path, class: "event-title"
+        .news-items
+          .news-padding
+            .news-title Latest News

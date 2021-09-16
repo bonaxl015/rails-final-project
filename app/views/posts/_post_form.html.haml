@@ -1,0 +1,8 @@
+= form_with model: @post do |f|
+  = f.text_area :caption, class: "text-area", id: "caption", placeholder: "Share something..."
+  .form-bottom-button-container
+    .d-flex
+      .p-2.flex-grow-1
+        = f.file_field :image, class: "form-control", id: "image-file"
+      .p-2
+        = f.submit :Post, class: "btn btn-maroon", id: "create-post-button"
