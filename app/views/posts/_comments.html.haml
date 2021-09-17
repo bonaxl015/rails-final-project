@@ -1,0 +1,13 @@
+- if post.comments.empty?
+  .comment-layout
+    .comment-content No comments for this post
+- post.comments.each do |comment|
+  .comment-layout
+    .d-flex.justify-content-between
+      .d-flex.flex-row.align-items-center
+        .username-comment-bold= link_to comment.user.username, profile_path(comment.user.username)
+        .distance-date= distance_of_time_posted_in_words(comment.created_at)
+      .comment-delete
+        - if comment.user.username == current_user.username
+          = link_to "Delete", post_comment_url(post_id: comment.post_id, id: comment.id), method: :delete, class: "text-space"
+    .comment-content= comment.content
