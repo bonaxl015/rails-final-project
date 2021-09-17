@@ -6,8 +6,8 @@
         .profile-full-name= @user.full_name
         .profile-username= @user.username
         .profile-stats
-          %scan.text-maroon= pluralize(@user.posts.count, "Post")
-          = link_to "| #{@user.followed_users.count} Following | #{pluralize(@user.follower_users.count, "Follower")}", relations_path(@user)
+          %scan.text-maroon= "#{pluralize(@user.posts.count, "Post")} |"
+          = link_to "#{@user.followed_users.count} Following | #{pluralize(@user.follower_users.count, "Follower")}", relations_path(@user)
         .profile-buttons
           - if @user == current_user
             = link_to "My Events", events_path, class: "btn btn-maroon"
@@ -23,7 +23,7 @@
           .post-card
             .post-text
               .no-post-text No posts to show
-        - else 
+        - else
           - @user_posts.each do |post|
             .post-card
               .post-text
@@ -37,6 +37,19 @@
                 .caption= post.caption
               - if post.image.present?
                 = image_tag post.image.url, class: 'img img-fluid'
+              %button.likers-btn= post.likes.count
+              .likers-modal.d-flex.justify-content-center.align-items-center
+                .likers-modal-inner.p-3
+                  Likes
+                  %button.close-likers-btn.float-end X
+                  %ul
+                    - post.likes.each do |liker|
+                      %li= full_name(liker.user)
+              .d-inline-block
+                - if liker(post)
+                  = button_to 'Unlike', post_like_path(post, liker(post)), method: :delete
+                - else
+                  = button_to 'Like', post_likes_path(post), method: :post
       .col-4
         .event-items
           .event-padding

@@ -22,6 +22,19 @@
                 .caption= post.caption
               - if post.image.present?
                 = image_tag post.image.url, class: "img img-fluid"
+              %button.likers-btn= post.likes.count
+              .likers-modal.d-flex.justify-content-center.align-items-center
+                .likers-modal-inner.p-3
+                  Likes
+                  %button.close-likers-btn.float-end X
+                  %ul
+                    - post.likes.each do |liker|
+                      %li= full_name(liker.user)
+              .d-inline-block
+                - if liker(post)
+                  = button_to 'Unlike', post_like_path(post, liker(post)), method: :delete
+                - else
+                  = button_to 'Like', post_likes_path(post), method: :post
       .col-4
         .event-items
           .event-padding
