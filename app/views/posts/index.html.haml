@@ -1,6 +1,7 @@
 .news-feed-body
   .container
     .row
+      -# All Posts
       .col-8
         .post-form
           = render "post_form"
@@ -22,7 +23,8 @@
                 .caption= post.caption
               - if post.image.present?
                 = image_tag post.image.url, class: "img img-fluid"
-              %button(type="button" data-bs-toggle="modal" data-bs-target="#likers-modal")= post.likes.count
+
+              -# Likers Modal
               #likers-modal.modal.fade(tabindex="-1" aria-labelledby="likes" aria-hidden="true")
                 .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
                   .modal-content
@@ -30,24 +32,37 @@
                       %h5#likes.modal-title Likes
                       %button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
                     .modal-body
-                      %ul
-                        - post.likes.each do |liker|
-                          %li= full_name(liker.user)
-              .d-inline-block
-                - if liker(post)
-                  = button_to 'Unlike', post_like_path(post, liker(post)), method: :delete
-                - else
-                  = button_to 'Like', post_likes_path(post), method: :post
+                      - post.likes.each do |liker|
+                        %p= link_to full_name(liker.user), profile_path(liker.user.username)
+
+              -# Like Button
+              .row.container-margin-top
+                .col-6
+                  - if liker(post)
+                    = button_to 'Unlike', post_like_path(post, liker(post)), method: :delete, class: "btn btn-maroon btn-wide btn-like-comment"
+                  - else
+                    = button_to 'Like', post_likes_path(post), method: :post, class: "btn btn-plain btn-wide btn-like-comment"
+                .col-6
+                  .btn.btn-plain.btn-wide.btn-like-comment.btn-comment Comment
+
+              -# Comment Section
               .comment-box
-                .comment-toggle View Comments
+                .d-flex.justify-content-between
+                  - unless post.likes.count == 0
+                    .post-likes(type="button" data-bs-toggle="modal" data-bs-target="#likers-modal")= "#{pluralize(post.likes.count, "like")}"
+                  .comment-toggle View Comments
                 .comment-display.hidden
                   = render "posts/comments", post: post
               .comment-form
                 = render "comments/comment_form", post: post
+
+      -# Sidebar
       .col-4
+        -# Events Display
         .event-items
           .event-padding
             = link_to "Events", all_events_path, class: "event-title"
+        -# Latest News Display 
         .news-items
           .news-padding
             .news-title Latest News
