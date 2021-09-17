@@ -1,6 +1,7 @@
 Attend.delete_all
 Event.delete_all
 Post.delete_all
+Like.delete_all
 UserRole.delete_all
 User.delete_all
 Role.delete_all
@@ -54,7 +55,7 @@ UserRole.create( user_id: admin.id, role_id: admin_role.id )
 UserRole.create( user_id: admin.id, role_id: moderator_role.id )
 UserRole.create( user_id: moderator.id, role_id: moderator_role.id )
 
-Post.create(
+post = Post.create(
   caption: 'Hello milky way galaxy',
   image: nil,
   user_id: ordinary.id
@@ -70,6 +71,11 @@ Post.create(
   caption: 'Hello milky way galaxy 3',
   image: nil,
   user_id: ordinary.id
+)
+
+Like.create(
+  user_id: ordinary3.id,
+  post_id: post.id
 )
 
 event = Event.create(
