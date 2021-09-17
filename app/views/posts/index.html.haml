@@ -22,8 +22,8 @@
                 .caption= post.caption
               - if post.image.present?
                 = image_tag post.image.url, class: "img img-fluid"
-              %button(type="button" data-bs-toggle="modal" data-bs-target="#likers-modal")= post.likes.count
-              #likers-modal.modal.fade(tabindex="-1" aria-labelledby="likes" aria-hidden="true")
+              %button(type="button" data-bs-toggle="modal" data-bs-target="#likers-#{post.created_at.strftime("%M%L")}-modal")= post.likes.count
+              .modal.fade(id="likers-#{post.created_at.strftime("%M%L")}-modal" tabindex="-1" aria-labelledby="likes" aria-hidden="true")
                 .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
                   .modal-content
                     .modal-header
