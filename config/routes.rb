@@ -11,7 +11,9 @@ Rails.application.routes.draw do
     get 'users/:id/relationships' => 'devise#relationships', as: 'relations'
   end
 
-  resources :posts, except: %i[show new]
+  resources :posts, except: %i[show new] do
+    resources :likes, only: %i[create destroy]
+  end
 
   resources :events do
     collection do
