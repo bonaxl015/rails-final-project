@@ -4,6 +4,7 @@ class PostsController < ApplicationController
 
   def index
     @post = current_user.posts.build
+    @comment = Comment.new
     @posts = Post.all.order(created_at: :desc).includes(:user)
   end
 
