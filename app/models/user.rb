@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :user_roles, dependent: :destroy
   has_many :roles, through: :user_roles
   has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :given_follows, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy, inverse_of: :follower_user
   has_many :followed_users, through: :given_follows, source: :followed_user
   has_many :received_follows, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy, inverse_of: :followed_user
