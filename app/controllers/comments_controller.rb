@@ -5,6 +5,7 @@ class CommentsController < ApplicationController
   def create
     @comment = @post.comments.new(comment_params.merge(user_id: current_user.id))
     return unless @comment.save
+
     respond_to do |format|
       format.html { redirect_to posts_path }
     end
