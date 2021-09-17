@@ -8,10 +8,6 @@ class ApplicationController < ActionController::Base
     @user_posts = Post.where(user_id: @user).order(created_at: :desc).includes(:user)
   end
 
-  def relationships
-    @user = User.friendly.find(params[:id])
-  end
-
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[username first_name last_name slug])
     devise_parameter_sanitizer.permit(:account_update, keys: %i[username first_name last_name slug])

@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   devise_scope :user do
     get 'users/sign_out' => 'devise/sessions#destroy'
     get 'users/:id/profile' => 'devise#profile', as: 'profile'
-    get 'users/:id/relationships' => 'devise#relationships', as: 'relations'
   end
 
   resources :posts, except: %i[show new] do
