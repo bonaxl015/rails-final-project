@@ -22,6 +22,12 @@
                 .caption= post.caption
               - if post.image.present?
                 = image_tag post.image.url, class: "img img-fluid"
+              .comment-box
+                .comment-toggle View Comments
+                .comment-display.hidden
+                  = render "posts/comments", post: post
+              .comment-form
+                = render "comments/comment_form", post: post
       .col-4
         .event-items
           .event-padding
