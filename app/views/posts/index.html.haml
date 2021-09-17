@@ -22,6 +22,22 @@
                 .caption= post.caption
               - if post.image.present?
                 = image_tag post.image.url, class: "img img-fluid"
+              %button(type="button" data-bs-toggle="modal" data-bs-target="#likers-modal")= post.likes.count
+              #likers-modal.modal.fade(tabindex="-1" aria-labelledby="likes" aria-hidden="true")
+                .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+                  .modal-content
+                    .modal-header
+                      %h5#likes.modal-title Likes
+                      %button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                    .modal-body
+                      %ul
+                        - post.likes.each do |liker|
+                          %li= full_name(liker.user)
+              .d-inline-block
+                - if liker(post)
+                  = button_to 'Unlike', post_like_path(post, liker(post)), method: :delete
+                - else
+                  = button_to 'Like', post_likes_path(post), method: :post
               .comment-box
                 .comment-toggle View Comments
                 .comment-display.hidden

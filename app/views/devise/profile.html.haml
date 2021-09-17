@@ -6,8 +6,36 @@
         .profile-full-name= @user.full_name
         .profile-username= @user.username
         .profile-stats
-          %scan.text-maroon= pluralize(@user.posts.count, "Post")
-          = link_to "| #{@user.followed_users.count} Following | #{pluralize(@user.follower_users.count, "Follower")}", relations_path(@user)
+          %scan.text-maroon= "#{pluralize(@user.posts.count, "Post")} |"
+          %button#relationships-btn(type="button" data-bs-toggle="modal" data-bs-target="#relationships-modal")= "#{@user.followed_users.count} Following | #{pluralize(@user.follower_users.count, "Follower")}"
+          #relationships-modal.modal.fade(tabindex="-1" aria-labelledby="relationships" aria-hidden="true")
+            .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+              .modal-content
+                .modal-header
+                  %h5#relationships.modal-title
+                    %ul#relationships-nav.nav.nav-tabs
+                      %li.nav-item
+                        %button.nav-link.active Following
+                      %li.nav-item
+                        %button.nav-link Followers
+                  %button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                .modal-body
+                  .tab-modal.active
+                    - if @user.given_follows.count == 0
+                      %p You haven't followed anyone yet.
+                    - else
+                      %ul
+                        - @user.given_follows.each do |given_follow|
+                          - User.where(id: given_follow.followed_id).each do |user|
+                            %li= link_to full_name(user), profile_path(user.username)
+                  .tab-modal
+                    - if @user.received_follows.count == 0
+                      %p No one has followed you yet.
+                    - else
+                      %ul
+                        - @user.received_follows.each do |received_follow|
+                          - User.where(id: received_follow.follower_id).each do |user|
+                            %li= link_to full_name(user), profile_path(user.username)
         .profile-buttons
           - if @user == current_user
             = link_to "My Events", events_path, class: "btn btn-maroon"
@@ -23,7 +51,7 @@
           .post-card
             .post-text
               .no-post-text No posts to show
-        - else 
+        - else
           - @user_posts.each do |post|
             .post-card
               .post-text
@@ -37,6 +65,22 @@
                 .caption= post.caption
               - if post.image.present?
                 = image_tag post.image.url, class: 'img img-fluid'
+              %button(type="button" data-bs-toggle="modal" data-bs-target="#likers-modal")= post.likes.count
+              #likers-modal.modal.fade(tabindex="-1" aria-labelledby="likes" aria-hidden="true")
+                .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+                  .modal-content
+                    .modal-header
+                      %h5#likes.modal-title Likes
+                      %button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                    .modal-body
+                      %ul
+                        - post.likes.each do |liker|
+                          %li= full_name(liker.user)
+              .d-inline-block
+                - if liker(post)
+                  = button_to 'Unlike', post_like_path(post, liker(post)), method: :delete
+                - else
+                  = button_to 'Like', post_likes_path(post), method: :post
               .comment-box
                 .comment-toggle View Comments
                 .comment-display.hidden

@@ -21,9 +21,17 @@ $(function () {
   });
 
   $(".comment-toggle").on("click", function () {
-    $(this).closest(".comment-box").children(".comment-display").toggle("slow");
+    $(this).closest(".comment-box").find(".comment-display").toggle("slow");
     if ($(".comment-toggle").text() == "View Comments")
       $(".comment-toggle").text("Hide Comments");
     else $(".comment-toggle").text("View Comments");
+  });
+
+  $(".likers-btn").on("click", function () {
+    $(this).addClass("active");
+  });
+
+  $(".close-likers-btn").on("click", function () {
+    $(".likers-btn").removeClass("active");
   });
 });

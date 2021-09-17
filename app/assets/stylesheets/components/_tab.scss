@@ -1,17 +1,14 @@
-#following,
-#followers {
-  cursor: pointer;
+#relationships-modal {
+  .modal-header {
+    border-bottom: none;
 
-  &.active {
-    & + .relationship-modal {
-      visibility: visible;
-      opacity: 1;
+    h5 {
+      width: 100%;
+
+      .nav-link {
+        color: #495057;
+        cursor: pointer;
+      }
     }
   }
-}
-
-.relationship-modal {
-  visibility: hidden;
-  opacity: 0;
-  transition: 0.5s;
 }
