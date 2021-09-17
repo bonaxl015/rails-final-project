@@ -1,0 +1,27 @@
+-# Follower and Following Modal
+#relationships-modal.modal.fade(tabindex="-1" aria-labelledby="relationships" aria-hidden="true")
+  .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+    .modal-content
+      .modal-header
+        %h5#relationships.modal-title
+          %ul#relationships-nav.nav.nav-tabs
+            %li.nav-item
+              %button.nav-link.active Following
+            %li.nav-item
+              %button.nav-link Followers
+        %button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+      .modal-body
+        .tab-modal.active
+          - if @user.given_follows.count == 0
+            %p This person haven't followed anyone yet.
+          - else
+            - @user.given_follows.each do |given_follow|
+              - User.where(id: given_follow.followed_id).each do |user|
+                %p= link_to full_name(user), profile_path(user.username)
+        .tab-modal
+          - if @user.received_follows.count == 0
+            %p No one has followed you yet.
+          - else
+            - @user.received_follows.each do |received_follow|
+              - User.where(id: received_follow.follower_id).each do |user|
+                %p= link_to full_name(user), profile_path(user.username)
