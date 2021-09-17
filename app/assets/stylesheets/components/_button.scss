@@ -1,21 +1,12 @@
 .btn-maroon {
   background-color: #800000;
-  color: #FFF;
+  color: #fff;
   &:hover {
     background-color: #a80000;
-    color: #FFF;
+    color: #fff;
   }
 }
 
 .btn-wide {
   width: 100%;
-}
-
-.likers-btn {
-  &.active {
-    & + .likers-modal {
-      visibility: visible;
-      opacity: 1;
-    }
-  }
 }
