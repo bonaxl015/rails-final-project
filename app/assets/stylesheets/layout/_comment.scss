@@ -1,0 +1,21 @@
+.comment-layout {
+  border-top: 1px #999 solid;
+  padding: 10px 20px;
+}
+
+.comment-form {
+  border-top: 1px #999 solid;
+}
+
+.comment-display {
+  max-height: 207px;
+  overflow-y: scroll;
+}
+
+.comment-toggle {
+  padding: 10px 20px;
+  color: #800000;
+  &:hover {
+    cursor: pointer;
+  }
+}

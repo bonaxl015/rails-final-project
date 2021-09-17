@@ -38,6 +38,12 @@
                   = button_to 'Unlike', post_like_path(post, liker(post)), method: :delete
                 - else
                   = button_to 'Like', post_likes_path(post), method: :post
+              .comment-box
+                .comment-toggle View Comments
+                .comment-display.hidden
+                  = render "posts/comments", post: post
+              .comment-form
+                = render "comments/comment_form", post: post
       .col-4
         .event-items
           .event-padding

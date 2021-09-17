@@ -1,0 +1,7 @@
+= form_for([post, @comment]) do |f|
+  .form-bottom-button-container
+    .d-flex.comment-text-button
+      .p-2.flex-grow-1
+        = f.text_area :content, class: "comment-text-area comment", placeholder: "Write a comment..."
+      .p-2
+        = f.submit :Comment, class: "btn btn-maroon create-comment-button"
