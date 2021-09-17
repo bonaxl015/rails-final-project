@@ -25,7 +25,7 @@
                 = image_tag post.image.url, class: "img img-fluid"
 
               -# Likers Modal
-              #likers-modal.modal.fade(tabindex="-1" aria-labelledby="likes" aria-hidden="true")
+              .modal.fade(id="likers-#{post.created_at.strftime("%M%L")}-modal" tabindex="-1" aria-labelledby="likes" aria-hidden="true")
                 .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
                   .modal-content
                     .modal-header
@@ -49,7 +49,7 @@
               .comment-box
                 .d-flex.justify-content-between
                   - unless post.likes.count == 0
-                    .post-likes(type="button" data-bs-toggle="modal" data-bs-target="#likers-modal")= "#{pluralize(post.likes.count, "like")}"
+                    .post-likes(type="button" data-bs-toggle="modal" data-bs-target="#likers-#{post.created_at.strftime("%M%L")}-modal")= "#{pluralize(post.likes.count, "like")}"
                   .comment-toggle View Comments
                 .comment-display.hidden
                   = render "posts/comments", post: post
