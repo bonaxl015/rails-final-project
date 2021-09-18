@@ -39,11 +39,19 @@
 }
 
 .news-padding {
-  padding: 12px 20px;
+  padding: 12px 20px 6px 20px;
 }
 
-.news-title {
+.news-header {
   color: #800000;
   font-weight: 600;
   font-size: 1.2rem;
+}
+
+.news-card {
+  margin: 16px 0;
+  
+  a {
+    font-weight: 600;
+  }
 }

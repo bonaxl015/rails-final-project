@@ -15,6 +15,7 @@ import "packs/home"
 import "packs/datepicker"
 import "packs/post"
 import "packs/profile"
+import "packs/latest-news"
 
 Rails.start()
 // Turbolinks.start()
