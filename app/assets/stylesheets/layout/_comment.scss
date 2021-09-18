@@ -13,6 +13,15 @@
 }
 
 .comment-toggle {
+  margin-left: auto;
+  padding: 10px 20px;
+  color: #800000;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.post-likes {
   padding: 10px 20px;
   color: #800000;
   &:hover {

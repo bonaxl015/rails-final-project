@@ -27,6 +27,10 @@ $(function () {
     else $(".comment-toggle").text("View Comments");
   });
 
+  $(".btn-comment").on("click", function () {
+    $(this).closest(".post-card").find(".comment").trigger("focus");
+  });
+
   $(".likers-btn").on("click", function () {
     $(this).addClass("active");
   });

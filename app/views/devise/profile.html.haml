@@ -1,42 +1,17 @@
 .profile-body
   .container
+    -# User Information
     .row.profile-container
       .col-2
       .col-10
         .profile-full-name= @user.full_name
         .profile-username= @user.username
         .profile-stats
-          %scan.text-maroon= "#{pluralize(@user.posts.count, "Post")} |"
-          %button#relationships-btn(type="button" data-bs-toggle="modal" data-bs-target="#relationships-modal")= "#{@user.followed_users.count} Following | #{pluralize(@user.follower_users.count, "Follower")}"
-          #relationships-modal.modal.fade(tabindex="-1" aria-labelledby="relationships" aria-hidden="true")
-            .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
-              .modal-content
-                .modal-header
-                  %h5#relationships.modal-title
-                    %ul#relationships-nav.nav.nav-tabs
-                      %li.nav-item
-                        %button.nav-link.active Following
-                      %li.nav-item
-                        %button.nav-link Followers
-                  %button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
-                .modal-body
-                  .tab-modal.active
-                    - if @user.given_follows.count == 0
-                      %p You haven't followed anyone yet.
-                    - else
-                      %ul
-                        - @user.given_follows.each do |given_follow|
-                          - User.where(id: given_follow.followed_id).each do |user|
-                            %li= link_to full_name(user), profile_path(user.username)
-                  .tab-modal
-                    - if @user.received_follows.count == 0
-                      %p No one has followed you yet.
-                    - else
-                      %ul
-                        - @user.received_follows.each do |received_follow|
-                          - User.where(id: received_follow.follower_id).each do |user|
-                            %li= link_to full_name(user), profile_path(user.username)
+          %span.text-maroon= "#{pluralize(@user.posts.count, "Post")} |"
+          %span.text-maroon= "#{@user.followed_users.count} Following |"
+          %span.text-maroon= "#{pluralize(@user.follower_users.count, "Follower")}"
         .profile-buttons
+          .btn.btn-maroon#relationships-btn(type="button" data-bs-toggle="modal" data-bs-target="#relationships-modal") Followers and Following
           - if @user == current_user
             = link_to "My Events", events_path, class: "btn btn-maroon"
             = link_to "Edit Profile", edit_user_registration_path, class: "btn btn-maroon"
@@ -45,6 +20,8 @@
               = link_to "Unfollow", relationship_path(user_id: @user.id), method: :delete, class: "btn btn-maroon"
             - else
               = link_to "Follow", relationships_path(user_id: @user.id), method: :post, class: "btn btn-maroon"
+    
+    -# User Posts
     .row
       .col-8
         -if @user_posts.empty?
@@ -65,7 +42,8 @@
                 .caption= post.caption
               - if post.image.present?
                 = image_tag post.image.url, class: 'img img-fluid'
-              %button(type="button" data-bs-toggle="modal" data-bs-target="#likers-#{post.created_at.strftime("%M%L")}-modal")= post.likes.count
+
+              -# Likers Modal
               .modal.fade(id="likers-#{post.created_at.strftime("%M%L")}-modal" tabindex="-1" aria-labelledby="likes" aria-hidden="true")
                 .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
                   .modal-content
@@ -73,27 +51,42 @@
                       %h5#likes.modal-title Likes
                       %button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
                     .modal-body
-                      %ul
-                        - post.likes.each do |liker|
-                          %li= full_name(liker.user)
-              .d-inline-block
-                - if liker(post)
-                  = button_to 'Unlike', post_like_path(post, liker(post)), method: :delete
-                - else
-                  = button_to 'Like', post_likes_path(post), method: :post
+                      - post.likes.each do |liker|
+                        %p= link_to full_name(liker.user), profile_path(liker.user.username)
+
+              -# Like Button
+              .row.container-margin-top
+                .col-6
+                  - if liker(post)
+                    = button_to 'Unlike', post_like_path(post, liker(post)), method: :delete, class: "btn btn-maroon btn-wide btn-like-comment"
+                  - else
+                    = button_to 'Like', post_likes_path(post), method: :post, class: "btn btn-plain btn-wide btn-like-comment"
+                .col-6
+                  .btn.btn-plain.btn-wide.btn-like-comment.btn-comment Comment
+
+              -# Comment Section
               .comment-box
-                .comment-toggle View Comments
+                .d-flex.justify-content-between
+                  - unless post.likes.count == 0
+                    .post-likes(type="button" data-bs-toggle="modal" data-bs-target="#likers-#{post.created_at.strftime("%M%L")}-modal")= "#{pluralize(post.likes.count, "like")}"
+                  .comment-toggle View Comments
                 .comment-display.hidden
                   = render "posts/comments", post: post
               .comment-form
                 = render "comments/comment_form", post: post
+
+      -# Sidebar
       .col-4
+        -# Events Display
         .event-items
           .event-padding
             - if true
               .event-title No attended events
             - else
               .event-title Events Reminders
+        -# Latest News Display      
         .news-items
           .news-padding
             .news-title Latest News
+
+= render "follow_modal"
