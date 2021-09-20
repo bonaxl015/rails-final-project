@@ -1,0 +1,12 @@
+.d-flex.justify-content-evenly.flex-wrap
+  - if @news == []
+    .d-flex.flex-column.align-items-center
+      .news-no-result= "No results found for #{params[:title]}"
+      = link_to "Back to Space News", space_news_index_path
+  - else
+    - @news.each do |news|
+      .card.card-w-400
+        = image_tag news[:imageUrl], class: "card-img-top img-resize", alt: "No image available"
+        .card-body
+          %h5.card-title= link_to news[:title], news[:url], target: "_blank"
+          %p.card-text= news[:summary]
