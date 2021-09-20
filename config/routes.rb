@@ -24,4 +24,10 @@ Rails.application.routes.draw do
   end
 
   resources :relationships, only: %i[create destroy]
+
+  resources :space_news, only: %i[index] do
+    collection do
+      get :search
+    end
+  end
 end
