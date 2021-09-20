@@ -1,0 +1,46 @@
+.news-pagination {
+  cursor: default;
+ }
+  .news-pagination a, .news-pagination span, .news-pagination em {
+    padding: 0.2em 0.5em;
+    display: block;
+    float: left;
+    margin-right: 1px; }
+  .news-pagination .disabled {
+    color: #999999;
+    border: 1px solid #dddddd; }
+  .news-pagination .current {
+    font-style: normal;
+    font-weight: bold;
+    background: #800000;
+    color: white;
+    border: 1px solid #800000; }
+  .news-pagination a {
+    text-decoration: none;
+    color: #800000;
+    border: 1px solid #a80000; }
+    .news-pagination a:hover, .news-pagination a:focus {
+      color: #000033;
+      border-color: #000033; }
+  .news-pagination .page_info {
+    background: #800000;
+    color: white;
+    padding: 0.4em 0.6em;
+    width: 22em;
+    margin-bottom: 0.3em;
+    text-align: center; }
+    .news-pagination .page_info b {
+      color: #000033;
+      background: #a80000;
+      padding: 0.1em 0.25em; }
+  .news-pagination:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+  * html .news-pagination {
+    height: 1%; }
+  *:first-child + html .news-pagination {
+    overflow: hidden;
+}
