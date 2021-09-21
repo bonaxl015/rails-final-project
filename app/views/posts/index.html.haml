@@ -17,8 +17,10 @@
         -# Events Display
         .event-items
           .event-padding
-            = link_to "Events", all_events_path, class: "event-title"
-        -# Latest News Display 
+            = link_to "Show All", events_path(tab: "all_events"), class: "float-end"
+            .event-title Events
+            = render "layouts/side_bar_events"
+        -# Latest News Display
         .news-items.news-padding
           .d-flex.justify-content-between
             .news-header Latest News

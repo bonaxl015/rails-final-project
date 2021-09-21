@@ -1,18 +1,12 @@
 class EventsController < ApplicationController
-  load_and_authorize_resource except: %i[index show all]
+  load_and_authorize_resource except: %i[index show]
   before_action :authenticate_user!
-  before_action :set_event, only: %i[show edit update destroy]
+  before_action :set_event, only: %i[edit update destroy]
 
   def index
     @user_events = Event.where(user_id: current_user)
     @events = Event.all
   end
-
-  def all
-    @events = Event.all
-  end
-
-  def show; end
 
   def new
     @event = Event.new
@@ -62,6 +56,6 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:name, :description, :date)
+    params.require(:event).permit(:name, :description, :start_date, :end_date)
   end
 end

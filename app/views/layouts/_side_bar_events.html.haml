@@ -1,0 +1,32 @@
+- if controller_checker(controller.controller_name)
+  - @events.limit(3).each_with_index do |event, index|
+    - unless event_ended?(event)
+      .card.my-3
+        .card-body
+          %h5.a.card-title(type="button" data-bs-toggle="modal" data-bs-target="#event-#{index}-modal")= event.name
+          = render "layouts/event_modal", event: event, index: index
+          - if event_ended?(event)
+            %p.card-text Event already ended.
+          - else
+            - if event_ongoing?(event)
+              %p.card-text= "Event is now ongoing. Ends #{event_time(event.end_date)}."
+              - if attendee(event)
+                %p.card-text Hurry up! You are an attendee at this now ongoing event.
+            - else
+              %p.card-text= "#{event_date_format(event.start_date)} - #{event_date_format(event.end_date)}"
+              - if attendee(event)
+                %p.card-text You are going to this event.
+- else
+  - @user_events.limit(3).each_with_index do |event, index|
+    - if attendee(event)
+      .card.my-3
+        .card-body
+          %h5.a.card-title(type="button" data-bs-toggle="modal" data-bs-target="#event-#{index}-modal")= event.name
+          = render "layouts/event_modal", event: event, index: index
+          - if event_ended?(event)
+            %p.card-text Event already ended.
+          - else
+            - if event_ongoing?(event)
+              %p.card-text= "Event is now ongoing. Ends #{event_time(event.end_date)}."
+            - else
+              %p.card-text= "#{event_date_format(event.start_date)} - #{event_date_format(event.end_date)}"

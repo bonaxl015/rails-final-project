@@ -13,14 +13,14 @@
         .profile-buttons
           .btn.btn-maroon#relationships-btn(type="button" data-bs-toggle="modal" data-bs-target="#relationships-modal") Followers and Following
           - if @user == current_user
-            = link_to "My Events", events_path, class: "btn btn-maroon"
+            = link_to "My Events", events_path(tab: "my_events"), class: "btn btn-maroon"
             = link_to "Edit Profile", edit_user_registration_path, class: "btn btn-maroon"
-          - unless @user == current_user
+          - else
             - if current_user.following?(@user)
               = link_to "Unfollow", relationship_path(user_id: @user.id), method: :delete, class: "btn btn-maroon"
             - else
               = link_to "Follow", relationships_path(user_id: @user.id), method: :post, class: "btn btn-maroon"
-    
+
     -# User Posts
     .row
       .col-8
@@ -36,11 +36,13 @@
         -# Events Display
         .event-items
           .event-padding
-            - if true
-              .event-title No attended events
+            = link_to "Show All", events_path(tab: "event_reminders"), class: "float-end"
+            - if @user_events
+              .event-title Events Reminder
+              = render "layouts/side_bar_events"
             - else
-              .event-title Events Reminders
-        -# Latest News Display      
+              .event-title No attended events
+        -# Latest News Display
         .news-items.news-padding
           .news-header Latest News
           #news-content

@@ -5,8 +5,7 @@ $(function () {
     $(".tab-modal.active").show();
   });
 
-  $("#relationships-nav > .nav-item > .nav-link").on("click", function (e) {
-    e.preventDefault();
+  $("#relationships-nav > .nav-item > .nav-link").on("click", function () {
     $("#relationships-nav > .nav-item > .nav-link").removeClass("active");
     $("#relationships-nav > .nav-item > .nav-link").prop("disabled", false);
     $(this).addClass("active");
