@@ -1,6 +1,6 @@
-# FactoryBot.define do
-#   factory :user_role do
-#     user { nil }
-#     role { nil }
-#   end
-# end
+FactoryBot.define do
+  factory :user_role do
+    association :user
+    association :role
+  end
+end
