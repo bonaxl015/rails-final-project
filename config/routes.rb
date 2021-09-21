@@ -15,11 +15,7 @@ Rails.application.routes.draw do
     resources :likes, only: %i[create destroy]
   end
 
-  resources :events do
-    collection do
-      get :all
-    end
-
+  resources :events, except: :show do
     resources :attends, only: %i[create destroy]
   end
 
