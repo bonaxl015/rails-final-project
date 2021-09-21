@@ -1,6 +1,6 @@
-# FactoryBot.define do
-#   factory :attend do
-#     user { nil }
-#     event { nil }
-#   end
-# end
+FactoryBot.define do
+  factory :attend do
+    association :user
+    association :event
+  end
+end
