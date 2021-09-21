@@ -24,46 +24,12 @@
     -# User Posts
     .row
       .col-8
-        -if @user_posts.empty?
+        - if @user_posts.empty?
           .post-card
             .post-text
               .no-post-text No posts to show
         - else
-          - @user_posts.each_with_index do |post, index|
-            .post-card
-              .post-text
-                .d-flex.justify-content-between
-                  .username-bold= link_to @user.username, profile_path(@user.username)
-                  .post-edit-delete
-                    - if post.user.username == current_user.username
-                      = link_to "Edit", edit_post_path(post), class: "text-space"
-                      = link_to "Delete", post, method: :delete, class: "text-space"
-                .distance-date= distance_of_time_posted_in_words(post.created_at)
-                .caption= post.caption
-              - if post.image.present?
-                = image_tag post.image.url, class: 'img img-fluid'
-
-              -# Like Button
-              .row.container-margin-top
-                .col-6
-                  - if liker(post)
-                    = button_to 'Unlike', post_like_path(post, liker(post)), method: :delete, class: "btn btn-maroon btn-wide btn-like-comment"
-                  - else
-                    = button_to 'Like', post_likes_path(post), method: :post, class: "btn btn-plain btn-wide btn-like-comment"
-                .col-6
-                  .btn.btn-plain.btn-wide.btn-like-comment.btn-comment Comment
-
-              -# Comment Section
-              .comment-box
-                .d-flex.justify-content-between
-                  - unless post.likes.count == 0
-                    .post-likes(type="button" data-bs-toggle="modal" data-bs-target="#likers-#{index}-modal")= "#{pluralize(post.likes.count, "like")}"
-                    = render "layouts/likers_modal", post: post, index: index
-                  .comment-toggle View Comments
-                .comment-display.hidden
-                  = render "posts/comments", post: post
-              .comment-form
-                = render "comments/comment_form", post: post
+          = render partial: "posts/post_display", collection: @user_posts, as: :post
 
       -# Sidebar
       .col-4
