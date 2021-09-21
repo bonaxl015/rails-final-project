@@ -22,6 +22,8 @@ gem 'rails_admin'
 gem 'cancancan'
 gem 'cloudinary'
 gem 'friendly_id', '~> 5.4.0'
+gem 'httparty'
+gem 'will_paginate'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

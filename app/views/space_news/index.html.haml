@@ -1,0 +1,13 @@
+.news-feed-body
+  .news-pagination
+    .d-flex.justify-content-between
+      .news-search-form
+        = form_with url: search_space_news_index_path, method: :get do |f|
+          .d-flex
+            %div= f.text_field :title, class: "form-control", id: "title", placeholder: "Search Article"
+            %div= f.submit :Search, class: "btn btn-maroon"
+      .paginate-top= will_paginate @news
+  = render 'display'
+  .news-pagination
+    .d-flex.justify-content-end
+      = will_paginate @news

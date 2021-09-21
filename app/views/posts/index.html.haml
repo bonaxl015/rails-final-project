@@ -64,5 +64,7 @@
             = link_to "Events", all_events_path, class: "event-title"
         -# Latest News Display 
         .news-items.news-padding
-          .news-header Latest News
+          .d-flex.justify-content-between
+            .news-header Latest News
+            = link_to "See All", space_news_index_path
           #news-content
