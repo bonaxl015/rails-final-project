@@ -1,0 +1,10 @@
+-# Likers Modal
+.modal.fade(id="likers-#{index}-modal" tabindex="-1" aria-labelledby="likes" aria-hidden="true")
+  .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+    .modal-content
+      .modal-header
+        %h5#likes.modal-title Likes
+        %button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+      .modal-body
+        - post.likes.each do |liker|
+          %p= link_to full_name(liker.user), profile_path(liker.user.username)

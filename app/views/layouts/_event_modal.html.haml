@@ -1,0 +1,53 @@
+-# Event Modal
+.event-modal.modal.fade(id="event-#{index}-modal" tabindex="-1" aria-labelledby="event" aria-hidden="true")
+  .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+    .modal-content
+      .modal-header
+        %h2#event.modal-title= event.name
+        %button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+      .modal-body
+        %ul#event-details-nav.nav.nav-tabs.mb-3
+          %li.nav-item
+            %button.nav-link.active Details
+          %li.nav-item
+            %button.nav-link Attendees
+          .align-self-center.ms-auto
+            - if can? :manage, event
+              - unless event_ended?(event)
+                = link_to edit_event_path(event), class: "me-2" do
+                  %i.fas.fa-edit
+                  Edit
+              = link_to event, method: :delete, data: { confirm: 'Are you sure?' } do
+                %i.fas.fa-trash-alt
+                Delete
+        .event-details-modal.active
+          %p= "#{event_date_format(event.start_date)} - #{event_date_format(event.end_date)}"
+          %p= event.description
+          %p= "Organizer: #{full_name(event.user)}"
+          %p= "Number of Attendees: #{event.attends.count}"
+          - if event_ended?(event)
+            - if can? :manage, event
+              %p You successfully organized and ended this event. You may now delete it.
+            - else
+              %p Event already ended.
+          - else
+            - unless can? :manage, event
+              - if attendee(event)
+                - if event_ongoing?(event)
+                  %p Hurry up! You are an attendee at this now ongoing event.
+                - else
+                  %p You are going to this event.
+                = button_to 'Cancel', event_attend_path(event, attendee(event)), method: :delete, class: "btn btn-maroon"
+              - else
+                %p= "Event is now ongoing. You can still attend, hurry up!" if event_ongoing?(event)
+                = button_to 'Attend', event_attends_path(event), method: :post, class: "btn btn-maroon"
+        .event-details-modal
+          - if event.attends.count == 0
+            %p This event does not have any attendees yet.
+          - else
+            - event.attends.each do |attendee|
+              - if can? :manage, event
+                %p.d-inline-block= full_name(attendee.user)
+                .d-inline-block= button_to 'Kick', event_attend_path(event, kick_attendee(event, attendee.user.id)), method: :delete, class: "btn btn-maroon" unless event_ended?(event)
+              - else
+                %p= full_name(attendee.user)

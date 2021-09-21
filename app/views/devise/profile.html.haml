@@ -13,14 +13,14 @@
         .profile-buttons
           .btn.btn-maroon#relationships-btn(type="button" data-bs-toggle="modal" data-bs-target="#relationships-modal") Followers and Following
           - if @user == current_user
-            = link_to "My Events", events_path, class: "btn btn-maroon"
+            = link_to "My Events", events_path(tab: "my_events"), class: "btn btn-maroon"
             = link_to "Edit Profile", edit_user_registration_path, class: "btn btn-maroon"
-          - unless @user == current_user
+          - else
             - if current_user.following?(@user)
               = link_to "Unfollow", relationship_path(user_id: @user.id), method: :delete, class: "btn btn-maroon"
             - else
               = link_to "Follow", relationships_path(user_id: @user.id), method: :post, class: "btn btn-maroon"
-    
+
     -# User Posts
     .row
       .col-8
@@ -29,7 +29,7 @@
             .post-text
               .no-post-text No posts to show
         - else
-          - @user_posts.each do |post|
+          - @user_posts.each_with_index do |post, index|
             .post-card
               .post-text
                 .d-flex.justify-content-between
@@ -42,17 +42,6 @@
                 .caption= post.caption
               - if post.image.present?
                 = image_tag post.image.url, class: 'img img-fluid'
-
-              -# Likers Modal
-              .modal.fade(id="likers-#{post.created_at.strftime("%M%L")}-modal" tabindex="-1" aria-labelledby="likes" aria-hidden="true")
-                .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
-                  .modal-content
-                    .modal-header
-                      %h5#likes.modal-title Likes
-                      %button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
-                    .modal-body
-                      - post.likes.each do |liker|
-                        %p= link_to full_name(liker.user), profile_path(liker.user.username)
 
               -# Like Button
               .row.container-margin-top
@@ -68,7 +57,8 @@
               .comment-box
                 .d-flex.justify-content-between
                   - unless post.likes.count == 0
-                    .post-likes(type="button" data-bs-toggle="modal" data-bs-target="#likers-#{post.created_at.strftime("%M%L")}-modal")= "#{pluralize(post.likes.count, "like")}"
+                    .post-likes(type="button" data-bs-toggle="modal" data-bs-target="#likers-#{index}-modal")= "#{pluralize(post.likes.count, "like")}"
+                    = render "layouts/likers_modal", post: post, index: index
                   .comment-toggle View Comments
                 .comment-display.hidden
                   = render "posts/comments", post: post
@@ -80,11 +70,13 @@
         -# Events Display
         .event-items
           .event-padding
-            - if true
-              .event-title No attended events
+            = link_to "Show All", events_path(tab: "event_reminders"), class: "float-end"
+            - if @user_events
+              .event-title Events Reminder
+              = render "layouts/side_bar_events"
             - else
-              .event-title Events Reminders
-        -# Latest News Display      
+              .event-title No attended events
+        -# Latest News Display
         .news-items.news-padding
           .news-header Latest News
           #news-content

@@ -3,18 +3,23 @@ class AttendsController < ApplicationController
   before_action :find_event
   before_action :find_attend, only: :destroy
   include AttendsHelper
+  include EventsHelper
 
   def create
+    return if event_ended?(@event)
+
     if already_attending?
       flash[:notice] = 'You are already attending this event.'
     else
       @event.attends.create(user_id: current_user.id)
     end
 
-    redirect_to event_path(@event)
+    redirect_back(fallback_location: events_path)
   end
 
   def destroy
+    return if event_ended?(@event)
+
     @attend.destroy if @event.user_id == current_user.id
 
     if already_attending?
@@ -23,7 +28,7 @@ class AttendsController < ApplicationController
       flash[:notice] = 'You are already not attending this event.'
     end
 
-    redirect_to event_path(@event)
+    redirect_back(fallback_location: events_path)
   end
 
   private

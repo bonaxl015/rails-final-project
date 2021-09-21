@@ -1,30 +1,80 @@
-= link_to "Add Event", new_event_path
-= link_to "Back", all_events_path
-%h2 My Events
-.d-flex.justify-content-evenly.flex-wrap
-  - unless @user_events.count == 0
-    - @user_events.each do |user_event|
-      .card
-        .card-body
-          %h5.card-title= user_event.name
-          %p.card-text= user_event.description
-          %p.card-text= user_event.date
-          = link_to 'Show', event_path(user_event)
-          - if can? :manage, user_event
-            = link_to 'Edit', edit_event_path(user_event)
-            = link_to 'Delete', user_event, method: :delete, data: { confirm: 'Are you sure?' }
-  - else
-    %p You haven't organized any events yet.
-%h2 Events to Attend
-.d-flex.justify-content-evenly.flex-wrap
-  - @events.each do |event|
-    - if attendee(event)
-      .card
-        .card-body
-          %h5.card-title= event.name
-          %p.card-text= event.description
-          %p.card-text= event.date
-          = link_to "Show", event_path(event)
-    - else
-      %p You are not attending any events yet.
-
+.card.mt-3
+  .card-body
+    %ul#events-nav.nav.nav-tabs
+      %li.nav-item
+        %button(id="all-events" class="h4 nav-link #{"active" if params[:tab] == "all_events" || params[:tab].nil?}") All Events
+      %li.nav-item
+        %button(id="my-events" class="h4 nav-link #{"active" if params[:tab] == "my_events"}") My Events
+      %li.nav-item
+        %button(id="event-reminders" class="h4 nav-link #{"active" if params[:tab] == "event_reminders"}") Event Reminders
+      .align-self-center.ms-auto.me-5
+        = link_to new_event_path, class: "btn btn-maroon border-0" do
+          %i.far.fa-calendar-alt
+          Add Event
+    %div(class="event-tab-modal all-events #{"active" if params[:tab] == "all_events" || params[:tab].nil?}")
+      .d-flex.justify-content-evenly.flex-wrap.mt-3
+        - @events.each_with_index do |event, index|
+          .card.m-2
+            .card-body
+              %h5.a.card-title(type="button" data-bs-toggle="modal" data-bs-target="#event-#{index}-modal")= event.name
+              = render "layouts/event_modal", event: event, index: index
+              - if event_ended?(event)
+                %p.card-text= "Event already ended. #{event.attends.count} have gone to this event."
+              - else
+                %p.card-text= "#{event_date_format(event.start_date)} - #{event_date_format(event.end_date)}"
+                %p.card-text
+                  = "#{event.attends.count} going"
+                  - if attendee(event)
+                    - if event_ongoing?(event)
+                      | Hurry up! You are an attendee at this now ongoing event.
+                    - else
+                      | You are going to this event.
+                  - else
+                    = "| Event is now ongoing. You can still attend, hurry up!" if event_ongoing?(event)
+              - if can? :manage, event
+                - if event_ended?(event)
+                  %p.card-text You successfully organized and ended this event. You may now delete it.
+                - else
+                  %p.card-text You are organizing this event.
+    %div(class="event-tab-modal my-events #{"active" if params[:tab] == "my_events"}")
+      .d-flex.justify-content-evenly.flex-wrap.mt-3
+        - if @user_events
+          - @user_events.each_with_index do |event, index|
+            .card.m-2
+              .card-body
+                %h5.a.card-title(type="button" data-bs-toggle="modal" data-bs-target="#event-m#{index}-modal")= event.name
+                = render "layouts/event_modal", event: event, index: "m#{index}"
+                - if event_ended?(event)
+                  %p.card-text Event already ended. You may now delete this event.
+                - else
+                  - if event_ongoing?(event)
+                    %p.card-text= "Event is now ongoing. Ends #{event_date_format(event.end_date)}."
+                  - else
+                    %p.card-text= "#{event_date_format(event.start_date)} - #{event_date_format(event.end_date)}"
+                - if can? :manage, event
+                  - unless event_ended?(event)
+                    = link_to edit_event_path(event), class: "me-2" do
+                      %i.fas.fa-edit
+                      Edit
+                  = link_to event, method: :delete, data: { confirm: 'Are you sure?' } do
+                    %i.fas.fa-trash-alt
+                    Delete
+        - else
+          %p You haven't organized any events yet.
+    %div(class="event-tab-modal event-reminders #{"active" if params[:tab] == "event_reminders"}")
+      .d-flex.justify-content-evenly.flex-wrap.mt-3
+        - unless @events.any? { |event| attendee(event) }
+          %p You are not attending any events yet.
+        - @events.each_with_index do |event, index|
+          - if attendee(event)
+            .card.m-2
+              .card-body
+                %h5.a.card-title(type="button" data-bs-toggle="modal" data-bs-target="#event-r#{index}-modal")= event.name
+                = render "layouts/event_modal", event: event, index: "r#{index}"
+                - if event_ended?(event)
+                  %p.card-text Event already ended.
+                - else
+                  - if event_ongoing?(event)
+                    %p.card-text= "Event is now ongoing. Ends #{event_time(event.end_date)}."
+                  - else
+                    %p.card-text= "#{event_date_format(event.start_date)} - #{event_date_format(event.end_date)}"
