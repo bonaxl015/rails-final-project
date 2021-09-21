@@ -13,6 +13,6 @@ class Event < ApplicationRecord
   end
 
   def valid_end_date
-    errors.add(:end_date, "can't be behind start date") if start_date.nil? || end_date.present? && end_date < start_date
+    errors.add(:end_date, "can't be behind start date") if start_date.nil? || (end_date.present? && end_date < start_date)
   end
 end

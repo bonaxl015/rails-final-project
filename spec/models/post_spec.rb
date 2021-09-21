@@ -6,6 +6,14 @@ RSpec.describe Post, type: :model do
   let(:post_with_comments) { create(:post_with_comments) }
   let(:post_with_likes) { create(:post_with_likes) }
 
+  let(:post_image_attach) do
+    post.image.attach(
+      io: File.open(Rails.root.join('spec', 'support', 'rspec-image-test.jpeg')),
+      filename: 'rspec-image-test.jpeg',
+      content_type: 'image/jpg'
+    )
+  end
+
   it 'belongs to user' do
     expect(described_class.reflect_on_association(:user).macro).to eq(:belongs_to)
   end
@@ -15,12 +23,7 @@ RSpec.describe Post, type: :model do
   end
 
   it 'has one attached image' do
-    post.image.attach(
-      io: File.open(Rails.root.join('spec', 'support', 'rspec-image-test.jpeg')),
-      filename: 'rspec-image-test.jpeg',
-      content_type: 'image/jpg'
-    )
-
+    post_image_attach
     expect(post.image).to be_attached
   end
 

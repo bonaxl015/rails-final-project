@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   subject(:user) { create(:user) }
 
-  let(:another) { create(:user) }
   let(:user_with_posts) { create(:user_with_posts) }
   let(:user_with_comments) { create(:user_with_comments) }
   let(:user_with_likes) { create(:user_with_likes) }
@@ -126,7 +125,7 @@ RSpec.describe User, type: :model do
 
     context 'when unique but case sensitive' do
       before do
-        user.username = another.username.upcase
+        user.username = create(:user).username.upcase
         user.valid?
       end
 
@@ -137,7 +136,7 @@ RSpec.describe User, type: :model do
 
     context 'when unique but not case sensitive' do
       before do
-        user.username = another.username
+        user.username = create(:user).username
         user.valid?
       end
 
