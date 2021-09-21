@@ -6,15 +6,16 @@
       width: 100%;
       font-size: 1rem;
 
-      .nav-link {
-        color: #495057;
-        cursor: pointer;
-      }
-
       .active {
         color: #800000;
         font-weight: 600;
       }
     }
+  }
+}
+
+.nav-tabs {
+  .nav-link {
+    color: #495057;
   }
 }
