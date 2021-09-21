@@ -6,6 +6,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build
     @comment = Comment.new
     @posts = Post.all.order(created_at: :desc).includes(:user)
+    @events = Event.all
   end
 
   def create
