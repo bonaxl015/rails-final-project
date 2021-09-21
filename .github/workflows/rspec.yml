@@ -52,7 +52,7 @@ jobs:
         with:
           ruby-version: 2.7.3
           bundler-cache: true
-      
+
       - name: Install Dependencies
         run: |
           sudo apt-get -yqq install libpq-dev
@@ -67,11 +67,11 @@ jobs:
 
       - name: Run Rubocop
         run: bundle exec rubocop
-        
+
       - name: Run Tests
         run: bundle exec rspec
         env:
           POSTGRES_HOST: 127.0.0.1
           POSTGRES_USER: 'postgres'
           POSTGRES_PASSWORD: 'test'
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          RAILS_TEST_KEY: ${{ secrets.RAILS_TEST_KEY }}
