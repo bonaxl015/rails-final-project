@@ -8,7 +8,7 @@ RSpec.describe Post, type: :model do
 
   let(:post_image_attach) do
     post.image.attach(
-      io: Rails.root.join('spec', 'support', 'rspec-image-test.jpeg').open,
+      io: Rails.root.join('spec/support/rspec-image-test.jpeg').open,
       filename: 'rspec-image-test.jpeg',
       content_type: 'image/jpg'
     )
