@@ -19,6 +19,7 @@ class AttendsController < ApplicationController
 
   def destroy
     return if event_ended?(@event)
+
     @attend.destroy if @event.user_id == current_user.id
 
     if already_attending?
