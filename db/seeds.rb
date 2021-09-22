@@ -1,5 +1,7 @@
 Attend.delete_all
 Event.delete_all
+Comment.delete_all
+Like.delete_all
 Post.delete_all
 Like.delete_all
 UserRole.delete_all
