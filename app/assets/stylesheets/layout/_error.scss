@@ -1,0 +1,27 @@
+.bg-white {
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #FFF;
+}
+
+.center-all-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.error-code {
+  color: #800000;
+  font-size: 4.5rem;
+}
+
+.error-message {
+  color: #000;
+  font-size: 2rem;
+}
