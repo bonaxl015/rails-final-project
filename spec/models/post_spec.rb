@@ -22,10 +22,10 @@ RSpec.describe Post, type: :model do
     expect(described_class.reflect_on_association(:comments).macro).to eq(:has_many)
   end
 
-  it 'has one attached image' do
-    post_image_attach
-    expect(post.image).to be_attached
-  end
+  # it 'has one attached image' do
+  #   post_image_attach
+  #   expect(post.image).to be_attached
+  # end
 
   it 'has many likes' do
     expect(described_class.reflect_on_association(:likes).macro).to eq(:has_many)
