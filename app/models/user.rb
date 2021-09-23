@@ -11,6 +11,8 @@ class User < ApplicationRecord
                        format: { with: /\A[A-Za-z0-9]+\z/ }
   validates :first_name, presence: true
   validates :last_name, presence: true
+  mount_uploader :profile_pic, ImageUploader
+  has_one_attached :profile_pic
   has_many :user_roles, dependent: :destroy
   has_many :roles, through: :user_roles
   has_many :posts, dependent: :destroy
