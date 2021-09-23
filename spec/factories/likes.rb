@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :user_role do
+  factory :like do
     association :user
-    association :role
+    association :post
   end
 end
