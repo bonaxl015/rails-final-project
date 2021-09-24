@@ -11,6 +11,9 @@
       .mb-3
         = f.email_field :email, autofocus: true, autocomplete: "sign-up-email", id: "email" , placeholder: "Email", class: "form-control"
       .mb-3
+        = f.label :profile_pic, "Upload Profile Picture"
+        = f.file_field :profile_pic, class: "form-control", id: "profile_pic"
+      .mb-3
         = f.password_field :password, autocomplete: "new-password", id: "password" , placeholder: "Password (leave blank if you don't want to change it)", class: "form-control"
         - if @minimum_password_length
           %em= "#{@minimum_password_length} characters minimum"

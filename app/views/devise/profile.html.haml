@@ -2,8 +2,14 @@
   .container
     -# User Information
     .row.profile-container
-      .col-2
-      .col-10
+      .col-3
+        .d-flex.justify-content-center
+          .profile-image
+            - if @user.profile_pic.url.present?
+              = image_tag @user.profile_pic.url, class: "img img-fluid img-profile"
+            - else
+              = image_tag "/default-user.jpg", class: "img img-fluid img-profile"
+      .col-9
         .profile-full-name= @user.full_name
         .profile-username= @user.username
         .profile-stats
