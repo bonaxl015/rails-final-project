@@ -8,9 +8,12 @@
       %li.nav-item
         %button(id="event-reminders" class="h4 nav-link #{"active" if params[:tab] == "event_reminders"}") Event Reminders
       .align-self-center.ms-auto.me-5
-        = link_to new_event_path, class: "btn btn-maroon border-0" do
+        = link_to new_event_path, class: "btn btn-maroon border-0", remote: true, "data-bs-toggle" => "modal", "data-bs-target" => "#new-event-modal" do
           %i.far.fa-calendar-alt
           Add Event
+        #new-event-modal.modal.fade(tabindex="-1" aria-labelledby="new-event-title" aria-hidden="true")
+          .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+            .modal-content
     %div(class="event-tab-modal all-events #{"active" if params[:tab] == "all_events" || params[:tab].nil?}")
       .d-flex.justify-content-evenly.flex-wrap.mt-3
         - @events.each_with_index do |event, index|
@@ -53,9 +56,12 @@
                     %p.card-text= "#{event_date_format(event.start_date)} - #{event_date_format(event.end_date)}"
                 - if can? :manage, event
                   - unless event_ended?(event)
-                    = link_to edit_event_path(event), class: "me-2" do
+                    = link_to edit_event_path(event), class: "me-2", remote: true, "data-bs-toggle" => "modal", "data-bs-target" => "#edit-event-#{index}-modal" do
                       %i.fas.fa-edit
                       Edit
+                    .modal.fade(id="edit-event-#{index}-modal" tabindex="-1" aria-labelledby="edit-event-title" aria-hidden="true")
+                      .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+                        .modal-content
                   = link_to event, method: :delete, data: { confirm: 'Are you sure?' } do
                     %i.fas.fa-trash-alt
                     Delete

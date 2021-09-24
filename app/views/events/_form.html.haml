@@ -1,18 +1,30 @@
-= form_with model: @event do |f|
-  .form-floating
-    = f.text_field :name, class: "form-control", placeholder: "Event"
-    = f.label :name
-  .form-floating.mt-2
-    = f.text_area :description, class: "form-control", placeholder: "Description"
-    = f.label :description
-  .d-flex.mt-2
-    .form-floating.d-inline-block
-      = f.datetime_field :start_date, id: 'start_datepicker', class: "form-control", type: "", placeholder: "Start Date"
-      = f.label :start_date
-    %span.h4.align-self-center.mx-3 to
-    .form-floating.d-inline-block
-      = f.datetime_field :end_date, id: 'end_datepicker', class: "form-control", type: "", placeholder: "End Date"
-      = f.label :end_date
-  .d-flex.mt-3
-    = f.submit "Add Event", class: "btn btn-maroon"
-    = link_to "Back", events_path(tab: "my_events"), class: "ms-3 align-self-center"
+.modal-header
+  %h5.modal-title
+  %button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+.modal-body
+  = form_with model: @event do |f|
+    .form-floating
+      = f.text_field :name, class: "form-control", placeholder: "Event"
+      = f.label :name
+    .form-floating.mt-2
+      = f.text_area :description, class: "form-control", placeholder: "Description"
+      = f.label :description
+    .d-flex.mt-2
+      .form-floating.d-inline-block
+        - if @event.start_date?
+          = f.datetime_field :start_date, id: 'start_datepicker', class: "form-control", type: "", placeholder: "Start Date", value: input_date_format(@event.start_date)
+          = f.label :start_date
+        - else
+          = f.datetime_field :start_date, id: 'start_datepicker', class: "form-control", type: "", placeholder: "Start Date"
+          = f.label :start_date
+      %span.h4.align-self-center.mx-3 to
+      .form-floating.d-inline-block
+        - if @event.end_date?
+          = f.datetime_field :end_date, id: 'end_datepicker', class: "form-control", type: "", placeholder: "End Date", value: input_date_format(@event.end_date)
+          = f.label :end_date
+        - else
+          = f.datetime_field :end_date, id: 'end_datepicker', class: "form-control", type: "", placeholder: "End Date"
+          = f.label :end_date
+    .d-flex.mt-3
+      = f.submit "Add Event", class: "btn btn-maroon"
+      = link_to "Back", events_path(tab: "my_events"), class: "ms-3 align-self-center"

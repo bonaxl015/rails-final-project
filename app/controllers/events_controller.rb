@@ -5,14 +5,24 @@ class EventsController < ApplicationController
 
   def index
     @user_events = Event.where(user_id: current_user)
-    @events = Event.all
+    @events = Event.all.includes(:user)
   end
 
   def new
     @event = Event.new
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
-  def edit; end
+  def edit
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
 
   def create
     @event = Event.new(event_params.merge(user_id: current_user.id))
