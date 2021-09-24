@@ -41,6 +41,19 @@ class PostsController < ApplicationController
     end
   end
 
+  def user_search
+    @user_ordinary = []
+    return unless params[:username]
+
+    @user_query = params[:username].downcase
+    @user = User.where('lower(username) LIKE ?', "%#{@user_query}%")
+            .or(User.where('lower(first_name) LIKE ?', "%#{@user_query}%"))
+            .or(User.where('lower(last_name) LIKE ?', "%#{@user_query}%"))
+    @user.each do |user|
+      @user_ordinary << user unless User.find(user.id).roles.where(role: 'Admin').present? || User.find(user.id).roles.where(role: 'Moderator').present?
+    end
+  end
+
   private
 
   def set_post
