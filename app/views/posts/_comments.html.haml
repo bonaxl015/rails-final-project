@@ -6,7 +6,7 @@
     .d-flex.justify-content-between
       .d-flex.flex-row.align-items-center
         .post-user-image
-          - if comment.user.profile_pic.url.present?
+          - if comment.user.profile_pic.present?
             = image_tag comment.user.profile_pic.url, class: "img img-fluid img-thumb"
           - else
             = image_tag "/default-user.jpg", class: "img img-fluid img-thumb"

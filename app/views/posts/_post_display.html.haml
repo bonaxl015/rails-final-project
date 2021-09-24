@@ -3,7 +3,7 @@
     .d-flex.justify-content-between
       .d-flex
         .post-user-image
-          - if post.user.profile_pic.url.present?
+          - if post.user.profile_pic.present?
             = image_tag post.user.profile_pic.url, class: "img img-fluid img-thumb"
           - else
             = image_tag "/default-user.jpg", class: "img img-fluid img-thumb"
@@ -18,7 +18,7 @@
             %i.fa.fa-trash
     .caption= post.caption
   - if post.image.present?
-    = image_tag post.image.url, class: "img img-fluid"
+    = image_tag post.image.url, class: "img img-fluid img-fill"
 
   -# Likers Modal
   .modal.fade(id="likers-#{post.created_at.strftime("%M%L")}-modal" tabindex="-1" aria-labelledby="likes" aria-hidden="true")
@@ -35,11 +35,17 @@
   .row.container-margin-top
     .col-6
       - if liker(post)
-        = button_to 'Unlike', post_like_path(post, liker(post)), method: :delete, class: "btn btn-maroon btn-wide btn-like-comment"
+        = button_to post_like_path(post, liker(post)), method: :delete, class: "btn btn-maroon btn-wide btn-like-comment" do
+          %i.far.fa-thumbs-up
+          Unlike
       - else
-        = button_to 'Like', post_likes_path(post), method: :post, class: "btn btn-plain btn-wide btn-like-comment"
+        = button_to post_likes_path(post), method: :post, class: "btn btn-plain btn-wide btn-like-comment" do
+          %i.far.fa-thumbs-up
+          Like
     .col-6
-      .btn.btn-plain.btn-wide.btn-like-comment.btn-comment Comment
+      .btn.btn-plain.btn-wide.btn-like-comment.btn-comment
+        %i.far.fa-comment
+        %span Comment
 
   -# Comment Section
   .comment-box

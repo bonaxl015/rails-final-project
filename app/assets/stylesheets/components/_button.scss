@@ -18,3 +18,10 @@
 .btn-like-comment {
   font-weight: 600;
 }
+
+.btn-outline {
+  border: 1px #000 solid;
+  &:hover {
+    border: 1px #000 solid;
+  }
+}
