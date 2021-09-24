@@ -7,6 +7,10 @@ module EventsHelper
     event_time.strftime('%I:%M %p')
   end
 
+  def input_date_format(event_date)
+    event_date.strftime('%a, %d %b %Y %I:%M')
+  end
+
   def event_ongoing?(event)
     Time.zone.now.between?(event.start_date, event.end_date)
   end

@@ -13,11 +13,11 @@ import "jquery"
 import "jquery-ui"
 import "flatpickr"
 import "packs/home"
-import "packs/datepicker"
 import "packs/post"
 import "packs/profile"
 import "packs/latest-news"
 import "packs/event"
+global.$ = jQuery
 
 Rails.start()
 // Turbolinks.start()

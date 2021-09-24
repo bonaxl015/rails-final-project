@@ -6,7 +6,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build
     @comment = Comment.new
     @posts = Post.all.order(created_at: :desc).includes(:user)
-    @events = Event.all
+    @events = Event.all.includes(:user)
   end
 
   def create
@@ -21,7 +21,12 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
 
   def update
     respond_to do |format|

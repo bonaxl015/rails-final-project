@@ -1,0 +1,7 @@
+.modal-header
+  %h5#edit-post-title.modal-title
+    Edit Post
+  %button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+.modal-body
+  .post-form
+    = render 'post_form', post: @post

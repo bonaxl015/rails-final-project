@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
     @comment = Comment.new
     @user = User.friendly.find(params[:id])
     @user_posts = Post.where(user_id: @user).order(created_at: :desc).includes(:user)
-    @user_events = Event.all
+    @user_events = Event.all.includes(:user)
   end
 
   def configure_permitted_parameters

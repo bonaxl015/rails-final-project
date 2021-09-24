@@ -1,3 +1,4 @@
+- index = post_counter + 1
 .post-card
   .post-text
     .d-flex.justify-content-between
@@ -12,24 +13,16 @@
           .distance-date= distance_of_time_posted_in_words(post.created_at)
       .post-edit-delete
         - if post.user.username == current_user.username
-          = link_to edit_post_path(post), class: "text-space" do
+          = link_to edit_post_path(post), class: "text-space", remote: true, "data-bs-toggle" => "modal", "data-bs-target" => "#edit-post-#{index}-modal" do
             %i.fa.fa-edit
+          .modal.fade(id="edit-post-#{index}-modal" tabindex="-1" aria-labelledby="edit-post-title" aria-hidden="true")
+            .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+              .modal-content
           = link_to post, method: :delete, class: "text-space" do
             %i.fa.fa-trash
     .caption= post.caption
   - if post.image.present?
     = image_tag post.image.url, class: "img img-fluid img-fill"
-
-  -# Likers Modal
-  .modal.fade(id="likers-#{post.created_at.strftime("%M%L")}-modal" tabindex="-1" aria-labelledby="likes" aria-hidden="true")
-    .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
-      .modal-content
-        .modal-header
-          %h5#likes.modal-title Likes
-          %button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
-        .modal-body
-          - post.likes.each do |liker|
-            %p= link_to full_name(liker.user), profile_path(liker.user.username)
 
   -# Like Button
   .row.container-margin-top
@@ -51,7 +44,8 @@
   .comment-box
     .d-flex.justify-content-between
       - unless post.likes.count == 0
-        .post-likes(type="button" data-bs-toggle="modal" data-bs-target="#likers-#{post.created_at.strftime("%M%L")}-modal")= "#{pluralize(post.likes.count, "like")}"
+        .post-likes(type="button" data-bs-toggle="modal" data-bs-target="#likers-#{index}-modal")= "#{pluralize(post.likes.count, "like")}"
+        = render "layouts/likers_modal", post: post, index: index
       .comment-toggle View Comments
     .comment-display.hidden
       = render "posts/comments", post: post
