@@ -1,9 +1,14 @@
 .nav.navbar.navbar-dark.bg-maroon.sticky-top
   .container-fluid.container
-    - if user_signed_in?
-      = link_to 'Stellargram', posts_path, class: 'navbar-brand'
-    - else
-      = link_to 'Stellargram', static_home_path, class: 'navbar-brand'
+    .d-flex
+      - if user_signed_in?
+        = link_to 'Stellargram', posts_path, class: 'navbar-brand'
+      - else
+        = link_to 'Stellargram', static_home_path, class: 'navbar-brand'
+      = form_with url: user_search_posts_path, method: "get" do |f|
+        .d-flex
+          = f.text_field :username, class: "form-control me-2", id: "user_search", placeholder: "Find by username"
+          = f.submit :Search, class: "btn btn-outline-light"
     .d-flex
       - if user_signed_in?
         = link_to 'Home', posts_path, class: 'nav-link'
