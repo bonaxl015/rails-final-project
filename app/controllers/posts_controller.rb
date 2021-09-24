@@ -21,7 +21,12 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
 
   def update
     respond_to do |format|
