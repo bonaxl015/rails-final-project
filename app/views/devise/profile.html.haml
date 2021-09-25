@@ -40,14 +40,15 @@
       -# Sidebar
       .col-4
         -# Events Display
-        .event-items
-          .event-padding
-            = link_to "See All", events_path(tab: "event_reminders"), class: "float-end"
-            - if @user_events
-              .event-title Events Reminder
-              = render "layouts/side_bar_events"
-            - else
-              .event-title No attended events
+        - if @user == current_user
+          .event-items
+            .event-padding
+              = link_to "See All", events_path(tab: "event_reminders"), class: "float-end"
+              - if @user_events.any? { |event| attendee(event) }
+                .event-title Events Reminder
+                = render "layouts/side_bar_events"
+              - else
+                .event-title No attended events
         -# Latest News Display
         .news-items.news-padding
           .d-flex.justify-content-between
