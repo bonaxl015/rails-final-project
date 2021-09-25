@@ -6,6 +6,7 @@ FactoryBot.define do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     slug { username }
+    profile_pic { nil }
 
     factory :user_with_admin_role do
       after(:create) do |user|
