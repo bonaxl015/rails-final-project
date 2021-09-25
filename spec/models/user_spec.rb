@@ -9,6 +9,11 @@ RSpec.describe User, type: :model do
   let(:user_with_events) { create(:user_with_events) }
   let(:user_with_attends) { create(:user_with_attends) }
 
+  it 'has one attached profile pic' do
+    profile_pic = Rack::Test::UploadedFile.new(Rails.root.join('spec/support/rspec-image-test.jpeg'), 'image/jpg')
+    expect(build(:user, profile_pic: profile_pic)).to be_valid
+  end
+
   it 'has many user roles' do
     expect(described_class.reflect_on_association(:user_roles).macro).to eq(:has_many)
   end
