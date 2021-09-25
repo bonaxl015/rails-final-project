@@ -75,6 +75,12 @@ Post.create(
   user_id: ordinary.id
 )
 
+post4 = Post.create(
+  caption: 'Hello milky way galaxy 4',
+  image: nil,
+  user_id: ordinary2.id
+)
+
 Comment.create(
   content: 'Sample Comment',
   post_id: post.id,
@@ -86,8 +92,13 @@ Like.create(
   post_id: post.id
 )
 
+Like.create(
+  user_id: ordinary3.id,
+  post_id: post4.id
+)
+
 event = Event.create(
-  name: 'Jane Event',
+  name: 'Jane Sample Future Event',
   description: 'Jane Event Description',
   start_date: 10.years.from_now,
   end_date: 10.years.from_now.tomorrow,
@@ -95,7 +106,7 @@ event = Event.create(
 )
 
 event2 = Event.new(
-  name: 'Bon Event',
+  name: 'Bon Sample Past Event',
   description: 'Bon Event Description',
   start_date: Time.zone.now.yesterday,
   end_date: 2.hours.from_now.yesterday,
