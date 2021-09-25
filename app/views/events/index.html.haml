@@ -19,6 +19,18 @@
         - @events.each_with_index do |event, index|
           .card.m-2
             .card-body
+              .float-end
+                - if can? :manage, event
+                  - unless event_ended?(event)
+                    = link_to edit_event_path(event), class: "me-2", remote: true, "data-bs-toggle" => "modal", "data-bs-target" => "#edit-event-#{index}-modal" do
+                      %i.fas.fa-edit
+                      Edit
+                    .modal.fade(id="edit-event-#{index}-modal" tabindex="-1" aria-labelledby="edit-event-title" aria-hidden="true")
+                      .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+                        .modal-content
+                  = link_to event, method: :delete, data: { confirm: 'Are you sure?' } do
+                    %i.fas.fa-trash-alt
+                    Delete
               %h5.a.card-title(type="button" data-bs-toggle="modal" data-bs-target="#event-#{index}-modal")= event.name
               = render "layouts/event_modal", event: event, index: index
               - if event_ended?(event)
@@ -45,6 +57,18 @@
           - @user_events.each_with_index do |event, index|
             .card.m-2
               .card-body
+                .float-end
+                  - if can? :manage, event
+                    - unless event_ended?(event)
+                      = link_to edit_event_path(event), class: "me-2", remote: true, "data-bs-toggle" => "modal", "data-bs-target" => "#edit-event-#{index}-modal" do
+                        %i.fas.fa-edit
+                        Edit
+                      .modal.fade(id="edit-event-#{index}-modal" tabindex="-1" aria-labelledby="edit-event-title" aria-hidden="true")
+                        .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+                          .modal-content
+                    = link_to event, method: :delete, data: { confirm: 'Are you sure?' } do
+                      %i.fas.fa-trash-alt
+                      Delete
                 %h5.a.card-title(type="button" data-bs-toggle="modal" data-bs-target="#event-m#{index}-modal")= event.name
                 = render "layouts/event_modal", event: event, index: "m#{index}"
                 - if event_ended?(event)
@@ -54,17 +78,6 @@
                     %p.card-text= "Event is now ongoing. Ends #{event_date_format(event.end_date)}."
                   - else
                     %p.card-text= "#{event_date_format(event.start_date)} - #{event_date_format(event.end_date)}"
-                - if can? :manage, event
-                  - unless event_ended?(event)
-                    = link_to edit_event_path(event), class: "me-2", remote: true, "data-bs-toggle" => "modal", "data-bs-target" => "#edit-event-#{index}-modal" do
-                      %i.fas.fa-edit
-                      Edit
-                    .modal.fade(id="edit-event-#{index}-modal" tabindex="-1" aria-labelledby="edit-event-title" aria-hidden="true")
-                      .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
-                        .modal-content
-                  = link_to event, method: :delete, data: { confirm: 'Are you sure?' } do
-                    %i.fas.fa-trash-alt
-                    Delete
         - else
           %p You haven't organized any events yet.
     %div(class="event-tab-modal event-reminders #{"active" if params[:tab] == "event_reminders"}")

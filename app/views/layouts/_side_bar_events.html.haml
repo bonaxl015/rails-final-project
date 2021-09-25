@@ -1,6 +1,6 @@
 - if controller_checker(controller.controller_name)
   - @events.limit(3).each_with_index do |event, index|
-    - unless event_ended?(event)
+    - unless event_ended?(event) || (can? :manage, event)
       .card.my-3
         .card-body
           %h5.a.card-title(type="button" data-bs-toggle="modal" data-bs-target="#event-#{index}-modal")= event.name

@@ -11,15 +11,6 @@
             %button.nav-link.active Details
           %li.nav-item
             %button.nav-link Attendees
-          .align-self-center.ms-auto
-            - if can? :manage, event
-              - unless event_ended?(event)
-                = link_to edit_event_path(event), class: "me-2" do
-                  %i.fas.fa-edit
-                  Edit
-              = link_to event, method: :delete, data: { confirm: 'Are you sure?' } do
-                %i.fas.fa-trash-alt
-                Delete
         .event-details-modal.active
           %p= "#{event_date_format(event.start_date)} - #{event_date_format(event.end_date)}"
           %p= event.description
