@@ -72,6 +72,10 @@ RSpec.configure do |config|
 
   config.include Devise::Test::IntegrationHelpers
   config.include FactoryBot::Syntax::Methods
+
+  config.after(:suite) do
+    FileUtils.rm_rf(Dir[Rails.root.join('public/uploads/tmp')])
+  end
 end
 
 FactoryBot.register_strategy(:attr_strat, AttributeStrategy)
