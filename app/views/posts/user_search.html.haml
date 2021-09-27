@@ -2,7 +2,7 @@
   - if @user_ordinary.empty?
     %h4= "No result for '#{@user_query}'"
   - else
-    %h4= "Displaying #{pluralize(@user.count, 'result')} for '#{@user_query}'"
+    %h4= "Displaying #{pluralize(@user_ordinary.count, 'result')} for '#{@user_query}'"
     .container.d-flex.flex-wrap
       - @user_ordinary.each do |user|
         .search-result-card
