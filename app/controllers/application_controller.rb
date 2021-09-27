@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def profile
+    session[:previous_controller] = controller_name
+    session[:previous_action] = action_name
     @comment = Comment.new
     @user = User.friendly.find(params[:id])
     @user_posts = Post.where(user_id: @user).order(created_at: :desc).includes(:user)
