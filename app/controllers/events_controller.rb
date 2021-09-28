@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  load_and_authorize_resource except: %i[index show]
+  load_and_authorize_resource except: %i[index]
   before_action :authenticate_user!
   before_action :set_event, only: %i[edit update destroy]
 
@@ -29,11 +29,9 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: 'Event was successfully created.' }
-        format.json { render :show, status: :created, location: @event }
+        format.html { redirect_to events_path, notice: 'Event was successfully created.' }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
+        format.html { redirect_to events_path, status: :unprocessable_entity }
       end
     end
   end
@@ -41,11 +39,9 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to @event, notice: 'Event was successfully updated.' }
-        format.json { render :show, status: :ok, location: @event }
+        format.html { redirect_to events_path, notice: 'Event was successfully updated.' }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
+        format.html { redirect_to events_path, status: :unprocessable_entity }
       end
     end
   end
@@ -54,7 +50,7 @@ class EventsController < ApplicationController
     @event.destroy
 
     respond_to do |format|
-      format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
+      format.html { redirect_to events_path, notice: 'Event was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
