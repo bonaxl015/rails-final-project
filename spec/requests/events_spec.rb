@@ -1,53 +1,142 @@
-# require 'rails_helper'
+require 'rails_helper'
 
-# RSpec.describe "Events", type: :request do
-#   describe "GET /index" do
-#     it "returns http success" do
-#       get "/events/index"
-#       expect(response).to have_http_status(:success)
-#     end
-#   end
+RSpec.describe 'Events', type: :request do
+  subject(:event) { create(:event) }
 
-#   describe "GET /show" do
-#     it "returns http success" do
-#       get "/events/show"
-#       expect(response).to have_http_status(:success)
-#     end
-#   end
+  let(:valid_attributes) { attr_strat(:event) }
+  let(:invalid_attributes) { attr_strat(:event, :invalid_attributes) }
 
-#   describe "GET /new" do
-#     it "returns http success" do
-#       get "/events/new"
-#       expect(response).to have_http_status(:success)
-#     end
-#   end
+  shared_context 'when user signed in' do
+    before do
+      sign_in create(:user)
+    end
+  end
 
-#   describe "GET /edit" do
-#     it "returns http success" do
-#       get "/events/edit"
-#       expect(response).to have_http_status(:success)
-#     end
-#   end
+  shared_examples 'renders a successful response' do
+    it 'renders a successful response' do
+      expect(response).to be_successful
+    end
+  end
 
-#   describe "GET /create" do
-#     it "returns http success" do
-#       get "/events/create"
-#       expect(response).to have_http_status(:success)
-#     end
-#   end
+  shared_examples 'redirects to base url' do
+    it 'redirects to base url' do
+      expect(response).to redirect_to("#{request.base_url}/")
+    end
+  end
 
-#   describe "GET /update" do
-#     it "returns http success" do
-#       get "/events/update"
-#       expect(response).to have_http_status(:success)
-#     end
-#   end
+  describe 'GET /index' do
+    include_context 'when user signed in'
 
-#   describe "GET /destroy" do
-#     it "returns http success" do
-#       get "/events/destroy"
-#       expect(response).to have_http_status(:success)
-#     end
-#   end
+    before do
+      get events_path
+    end
 
-# end
+    include_examples 'renders a successful response'
+  end
+
+  describe 'GET /new' do
+    include_context 'when user signed in'
+
+    before do
+      get new_event_path, xhr: true
+    end
+
+    include_examples 'renders a successful response'
+  end
+
+  describe 'GET /edit' do
+    include_context 'when user signed in'
+
+    before do
+      get edit_event_path(event), xhr: true
+    end
+
+    include_examples 'redirects to base url'
+  end
+
+  describe 'POST /create' do
+    include_context 'when user signed in'
+
+    context 'with valid parameters' do
+      before do
+        post events_path, params: { event: valid_attributes }
+      end
+
+      it 'redirects to events' do
+        expect(response).to redirect_to(events_path)
+      end
+    end
+
+    context 'with invalid parameters' do
+      before do
+        post events_path, params: { event: invalid_attributes }
+      end
+
+      it 'renders unprocessable entity response' do
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
+
+  describe 'PATCH /update' do
+    include_context 'when user signed in'
+
+    context 'with valid parameters' do
+      let(:new_attributes) { attr_strat(:event, :new_attributes) }
+
+      before do
+        patch event_path(event), params: { event: new_attributes }
+      end
+
+      include_examples 'redirects to base url'
+    end
+
+    context 'with invalid parameters' do
+      before do
+        patch event_path(event), params: { event: invalid_attributes }
+      end
+
+      include_examples 'redirects to base url'
+    end
+  end
+
+  describe 'DELETE /destroy' do
+    include_context 'when user signed in'
+
+    before do
+      delete event_path(event)
+    end
+
+    include_examples 'redirects to base url'
+  end
+
+  context 'when user not signed in' do
+    describe 'GET /index' do
+      before do
+        get events_path
+      end
+
+      it 'redirects to home' do
+        expect(response).to redirect_to(static_home_path)
+      end
+    end
+
+    describe 'GET /new' do
+      before do
+        get new_event_path, xhr: true
+      end
+
+      it 'renders unauthorized response' do
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    describe 'GET /edit' do
+      before do
+        get edit_event_path(event), xhr: true
+      end
+
+      include_examples 'redirects to base url'
+    end
+  end
+end
