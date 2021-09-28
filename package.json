@@ -8,7 +8,7 @@
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.1.4-1",
     "@rails/webpacker": "5.4.2",
-    "bootstrap": "5.0.2",
+    "bootstrap": "^5.1.1",
     "flatpickr": "^4.6.9",
     "jquery": "^3.6.0",
     "jquery-ui-dist": "^1.12.1",
