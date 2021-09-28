@@ -12,6 +12,8 @@
  *
  *= require bootstrap
  *= require flatpickr
- *= require_tree .
- *= require_self
+ * require_tree .
+ * require_self
  */
+
+@import "main";
