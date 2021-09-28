@@ -1,11 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
-  include SetSessions
 
   def profile
-    post_session
-    relationship_session
     @comment = Comment.new
     @user = User.friendly.find(params[:id])
     @user_posts = Post.where(user_id: @user).order(created_at: :desc).includes(:user)
