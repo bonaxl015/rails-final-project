@@ -36,7 +36,7 @@ class PostsController < ApplicationController
       redirect_to profile_path(current_user.username) if session[:post_previous_action] == 'profile' && session[:post_previous_controller] == 'devise'
     else
       respond_to do |format|
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { redirect_to posts_path, status: :unprocessable_entity }
       end
     end
   end
