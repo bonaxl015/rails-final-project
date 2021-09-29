@@ -44,7 +44,10 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_back(fallback_location: posts_path)
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: posts_path) }
+      format.js
+    end
   end
 
   def user_search
