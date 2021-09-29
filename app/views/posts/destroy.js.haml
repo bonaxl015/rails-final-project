@@ -1,0 +1,4 @@
+:plain
+  $(".delete-post").bind("ajax:success", function() {
+    $(this).closest(".post-card").fadeOut();
+  });
