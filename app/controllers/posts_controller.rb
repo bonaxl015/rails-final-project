@@ -12,9 +12,12 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
+    @posts_count = Post.all.count
+    @comment = Comment.new
     respond_to do |format|
       if @post.save
         format.html { redirect_to posts_path }
+        format.js
       else
         format.html { redirect_to posts_path, status: :unprocessable_entity }
         format.json { render json: @post.errors, status: :unprocessable_entity }
