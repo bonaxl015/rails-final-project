@@ -10,7 +10,9 @@
             .post-text
               .no-post-text No posts to show
         - else
-          = render partial: "post_display", collection: @posts, as: :post
+          #post-display
+            - @posts.each_with_index do |post, index|
+              = render partial: "post_display", locals: { post: post, index: index + 1 }
 
       -# Sidebar
       .col-4
