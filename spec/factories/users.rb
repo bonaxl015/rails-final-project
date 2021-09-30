@@ -8,6 +8,16 @@ FactoryBot.define do
     slug { username }
     profile_pic { nil }
 
+    trait :invalid_attributes do
+      email { nil }
+      password { nil }
+      username { nil }
+      first_name { nil }
+      last_name { nil }
+      slug { username }
+      profile_pic { nil }
+    end
+
     factory :user_with_admin_role do
       after(:create) do |user|
         user.roles << create(:role, role: 'Admin')
