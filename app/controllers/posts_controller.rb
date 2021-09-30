@@ -26,6 +26,7 @@ class PostsController < ApplicationController
   end
 
   def edit
+    session[:index] = params[:index]
     respond_to do |format|
       format.html
       format.js
@@ -33,10 +34,12 @@ class PostsController < ApplicationController
   end
 
   def update
-    if @post.update(post_params)
-      redirect_back(fallback_location: posts_path)
-    else
-      respond_to do |format|
+    @comment = Comment.new
+    respond_to do |format|
+      if @post.update(post_params)
+        format.html { redirect_back(fallback_location: posts_path) }
+        format.js
+      else
         format.html { render :edit, status: :unprocessable_entity }
       end
     end
