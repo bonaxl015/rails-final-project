@@ -29,10 +29,10 @@ Ruby 2.7.3
 
 ## System Dependencies
 
-Rails 6.1.4
-NodeJS 12.22.1
-Yarn 1.22.10
-PostgreSQL 13.3
+- Rails 6.1.4
+- NodeJS 12.22.1
+- Yarn 1.22.10
+- PostgreSQL 13.3
 
 ## Configuration
 
