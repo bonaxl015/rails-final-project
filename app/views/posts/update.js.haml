@@ -1,0 +1,8 @@
+:plain
+  $("#post-display").find("#post-item-#{session[:index]}").replaceWith("#{escape_javascript( render partial: "post_display", locals: { post: @post, index: session[:index] })}");
+  $("#edit-post-#{session[:index]}-modal").removeClass("show");
+  $(".modal-backdrop").remove();
+  $("body").removeClass();
+  $("body").removeAttr("style")
+  $(".nav.navbar").removeAttr("style")
+  

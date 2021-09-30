@@ -1,5 +1,4 @@
-- index = post_counter + 1
-.post-card
+.post-card(id="post-item-#{index}")
   .post-text
     .d-flex.justify-content-between
       .d-flex
@@ -13,12 +12,12 @@
           .distance-date= distance_of_time_posted_in_words(post.created_at)
       .post-edit-delete
         - if post.user.username == current_user.username
-          = link_to edit_post_path(post), class: "text-space", remote: true, "data-bs-toggle" => "modal", "data-bs-target" => "#edit-post-#{index}-modal" do
+          = link_to edit_post_path(id: post.id, index: index), class: "text-space edit-post", remote: true, "data-bs-toggle" => "modal", "data-bs-target" => "#edit-post-#{index}-modal" do
             %i.fa.fa-edit
           .modal.fade(id="edit-post-#{index}-modal" tabindex="-1" aria-labelledby="edit-post-title" aria-hidden="true")
             .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
               .modal-content
-          = link_to post, method: :delete, class: "text-space" do
+          = link_to post, method: :delete, remote: true, class: "text-space delete-post" do
             %i.fa.fa-trash
     .caption= post.caption
   - if post.image.present?

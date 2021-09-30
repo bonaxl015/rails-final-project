@@ -12,9 +12,12 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
+    @posts_count = Post.all.count
+    @comment = Comment.new
     respond_to do |format|
       if @post.save
         format.html { redirect_to posts_path }
+        format.js
       else
         format.html { redirect_to posts_path, status: :unprocessable_entity }
         format.json { render json: @post.errors, status: :unprocessable_entity }
@@ -23,6 +26,7 @@ class PostsController < ApplicationController
   end
 
   def edit
+    session[:index] = params[:index]
     respond_to do |format|
       format.html
       format.js
@@ -30,18 +34,23 @@ class PostsController < ApplicationController
   end
 
   def update
-    if @post.update(post_params)
-      redirect_back(fallback_location: posts_path)
-    else
-      respond_to do |format|
-        format.html { redirect_to posts_path, status: :unprocessable_entity }
+    @comment = Comment.new
+    respond_to do |format|
+      if @post.update(post_params)
+        format.html { redirect_back(fallback_location: posts_path) }
+        format.js
+      else
+        format.html { render :edit, status: :unprocessable_entity }
       end
     end
   end
 
   def destroy
     @post.destroy
-    redirect_back(fallback_location: posts_path)
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: posts_path) }
+      format.js
+    end
   end
 
   def user_search

@@ -35,7 +35,8 @@
             .post-text
               .no-post-text No posts to show
         - else
-          = render partial: "posts/post_display", collection: @user_posts, as: :post
+          - @user_posts.each_with_index do |post, index|
+            = render partial: "posts/post_display", locals: { post: post, index: index + 1 }
 
       -# Sidebar
       .col-4

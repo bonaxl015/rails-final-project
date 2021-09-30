@@ -1,0 +1,4 @@
+:plain
+  $("#post-display").prepend("#{escape_javascript( render partial: "post_display", locals: { post: @post, index: @posts_count + 1 })}");
+  $("#caption").val("");
+  $("#image-file").val("");
