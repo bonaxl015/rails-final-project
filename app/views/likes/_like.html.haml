@@ -1,0 +1,9 @@
+.post-like
+  - if liker(post)
+    = button_to post_like_path(post, liker(post), index: index), method: :delete, remote: true, class: "btn btn-maroon btn-wide btn-like-comment unlike-post" do
+      %i.far.fa-thumbs-up
+      Unlike
+  - else
+    = button_to post_likes_path(post, index: index), method: :post, remote: true, class: "btn btn-plain btn-wide btn-like-comment like-post" do
+      %i.far.fa-thumbs-up
+      Like
