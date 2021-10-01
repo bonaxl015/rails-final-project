@@ -7,6 +7,7 @@ module UserFilter
     end
 
     return nil if user_ordinary.empty?
+
     user_ordinary
   end
 end
