@@ -1,7 +1,5 @@
 .news-feed-body
-  - if @user_ordinary.empty?
-    %h4= "No result for '#{@user_query}'"
-  - else
+  - if @user_ordinary
     %h4= "Displaying #{pluralize(@user_ordinary.count, 'result')} for '#{@user_query}'"
     .container.d-flex.flex-wrap
       - @user_ordinary.each do |user|
@@ -22,3 +20,5 @@
                 = link_to "Unfollow", relationship_path(id: current_user.id, user_id: user.id), method: :delete, class: "btn btn-maroon"
               - else
                 = link_to "Follow", relationships_path(id: current_user.id, user_id: user.id), method: :post, class: "btn btn-light btn-outline"
+  - else
+    %h4= "No result for '#{@user_query}'"

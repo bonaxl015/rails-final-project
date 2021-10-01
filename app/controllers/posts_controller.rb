@@ -40,7 +40,7 @@ class PostsController < ApplicationController
         format.html { redirect_back(fallback_location: posts_path) }
         format.js
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { redirect_back(fallback_location: posts_path, status: :unprocessable_entity) }
       end
     end
   end
