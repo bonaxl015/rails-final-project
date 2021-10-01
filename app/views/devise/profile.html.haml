@@ -12,20 +12,16 @@
       .col-9
         .profile-full-name= @user.full_name
         .profile-username= @user.username
-        .profile-stats
-          %span.text-maroon= "#{pluralize(@user.posts.count, "Post")} |"
-          %span.text-maroon= "#{@user.followed_users.count} Following |"
-          %span.text-maroon= "#{pluralize(@user.follower_users.count, "Follower")}"
+        #user-profile-stats
+          = render partial: "relationships/follow_count", locals: { user: @user }
         .profile-buttons
           .btn.btn-maroon#relationships-btn(type="button" data-bs-toggle="modal" data-bs-target="#relationships-modal") Followers and Following
           - if @user == current_user
             = link_to "My Events", events_path(tab: "my_events"), class: "btn btn-maroon"
             = link_to "Edit Profile", edit_user_registration_path, class: "btn btn-maroon"
           - else
-            - if current_user.following?(@user)
-              = link_to "Unfollow", relationship_path(user_id: @user.id), method: :delete, class: "btn btn-maroon"
-            - else
-              = link_to "Follow", relationships_path(user_id: @user.id), method: :post, class: "btn btn-light"
+            #follow-user-button
+              = render partial: "relationships/follow_button", locals: { user: @user }
 
     -# User Posts
     .row

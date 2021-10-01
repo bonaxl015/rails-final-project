@@ -1,0 +1,4 @@
+.profile-stats
+  %span.text-maroon= "#{pluralize(user.posts.count, "Post")} |"
+  %span.text-maroon= "#{user.followed_users.count} Following |"
+  %span.text-maroon= "#{pluralize(user.follower_users.count, "Follower")}"
