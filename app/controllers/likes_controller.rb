@@ -5,23 +5,29 @@ class LikesController < ApplicationController
   include LikesHelper
 
   def create
+    session[:index] = params[:index]
     if already_liked?
       flash[:notice] = 'You already liked this.'
     else
       @post.likes.create(user_id: current_user.id)
     end
-
-    redirect_back(fallback_location: posts_path)
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: posts_path) }
+      format.js
+    end
   end
 
   def destroy
+    session[:index] = params[:index]
     if already_liked?
       @like.destroy
     else
       flash[:notice] = 'You already unliked this.'
     end
-
-    redirect_back(fallback_location: posts_path)
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: posts_path) }
+      format.js
+    end
   end
 
   private
