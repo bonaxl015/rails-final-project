@@ -1,4 +1,40 @@
 :plain
-  $("#post-display").prepend("#{escape_javascript( render partial: "post_display", locals: { post: @post, index: @posts_count + 1 })}");
-  $("#caption").val("");
-  $("#image-file").val("");
+  $("#post-display").prepend("#{escape_javascript( render partial: "all_posts/display", locals: { post: @post, post_index: @posts_count + 1 })}");
+  
+  setTimeout(function() {
+    $("#caption").val("");
+    $("#image-file").val("");
+
+    if ($("#caption").val() == "") {
+      $("#create-post-button").prop("disabled", true);
+    }
+
+    $("#caption").on("keyup", function () {
+      if ($("#caption").val() != "")
+        $("#create-post-button").prop("disabled", false);
+      else $("#create-post-button").prop("disabled", true);
+    });
+
+    if ($(".comment").val() == "") {
+      $(".create-comment-button").prop("disabled", true);
+    }
+
+    $(".comment").on("keyup", function () {
+      if ($(this).val() != "")
+        $(this).closest(".comment-text-button").find(".create-comment-button").prop("disabled", false);
+      else
+        $(this).closest(".comment-text-button").find(".create-comment-button").prop("disabled", true);
+    });
+
+    $(".comment-toggle").on("click", function () {
+      $(this).closest(".comment-box").find(".comment-display").toggle("slow");
+      if ($(".comment-toggle").text() == "View Comments")
+        $(".comment-toggle").text("Hide Comments");
+      else $(".comment-toggle").text("View Comments");
+    });
+
+    $(".btn-comment").on("click", function () {
+      $(this).closest(".post-card").find(".comment").trigger("focus");
+    });
+  }, 50);
+  
