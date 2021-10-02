@@ -5,7 +5,7 @@ class LikesController < ApplicationController
   include LikesHelper
 
   def create
-    session[:index] = params[:index]
+    session[:post_index] = params[:post_index]
     if already_liked?
       flash[:notice] = 'You already liked this.'
     else
@@ -18,7 +18,7 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    session[:index] = params[:index]
+    session[:post_index] = params[:post_index]
     if already_liked?
       @like.destroy
     else

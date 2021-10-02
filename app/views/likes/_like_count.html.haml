@@ -1,4 +1,4 @@
 .post-like-content
   - unless post.likes.count == 0
-    .post-likes(type="button" data-bs-toggle="modal" data-bs-target="#likers-#{index}-modal")= "#{pluralize(post.likes.count, "like")}"
-    = render "layouts/likers_modal", post: post, index: index
+    .post-likes(type="button" data-bs-toggle="modal" data-bs-target="#likers-#{post_index}-modal")= "#{pluralize(post.likes.count, "like")}"
+    = render "layouts/likers_modal", post: post, post_index: post_index
