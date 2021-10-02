@@ -1,0 +1,12 @@
+- if attendee(event)
+  .card.m-2
+    .card-body
+      %h5.a.card-title(type="button" data-bs-toggle="modal" data-bs-target="#event-r#{index}-modal")= event.name
+      = render "layouts/event_modal", event: event, index: "r#{index}"
+      - if event_ended?(event)
+        %p.card-text Event already ended.
+      - else
+        - if event_ongoing?(event)
+          %p.card-text= "Event is now ongoing. Ends #{event_time(event.end_date)}."
+        - else
+          %p.card-text= "#{event_date_format(event.start_date)} - #{event_date_format(event.end_date)}"

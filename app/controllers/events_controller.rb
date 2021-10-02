@@ -4,8 +4,8 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[edit update destroy]
 
   def index
-    @user_events = Event.where(user_id: current_user)
-    @events = Event.all.includes(:user)
+    @user_events = Event.where(user_id: current_user).order(created_at: :desc)
+    @events = Event.all.includes(:user).order(created_at: :desc)
   end
 
   def new
@@ -30,6 +30,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
         format.html { redirect_to events_path, notice: 'Event was successfully created.' }
+        format.js
       else
         format.html { redirect_to events_path, status: :unprocessable_entity }
       end
@@ -40,6 +41,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to events_path, notice: 'Event was successfully updated.' }
+        format.js
       else
         format.html { redirect_to events_path, status: :unprocessable_entity }
       end

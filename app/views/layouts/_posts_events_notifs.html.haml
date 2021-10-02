@@ -1,0 +1,11 @@
+- if event_ended?(event)
+  %p.card-text Event already ended.
+- else
+  - if event_ongoing?(event)
+    %p.card-text= "Event is now ongoing. Ends #{event_time(event.end_date)}."
+    - if attendee(event)
+      %p.card-text Hurry up! You are an attendee at this now ongoing event.
+  - else
+    %p.card-text= "#{event_date_format(event.start_date)} - #{event_date_format(event.end_date)}"
+    - if attendee(event)
+      %p.card-text You are going to this event.
