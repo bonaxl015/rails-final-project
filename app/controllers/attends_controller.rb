@@ -14,7 +14,10 @@ class AttendsController < ApplicationController
       @event.attends.create(user_id: current_user.id)
     end
 
-    redirect_back(fallback_location: events_path)
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: events_path) }
+      format.js
+    end
   end
 
   def destroy
@@ -28,7 +31,10 @@ class AttendsController < ApplicationController
       flash[:notice] = 'You are already not attending this event.'
     end
 
-    redirect_back(fallback_location: events_path)
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: events_path) }
+      format.js
+    end
   end
 
   private
