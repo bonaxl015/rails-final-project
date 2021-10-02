@@ -14,19 +14,8 @@
           Delete
     %h5.a.card-title(type="button" data-bs-toggle="modal" data-bs-target="#event-#{index}-modal")= event.name
     = render "layouts/event_modal", event: event, index: index
-    - if event_ended?(event)
-      %p.card-text= "Event already ended. #{event.attends.count} have gone to this event."
-    - else
-      %p.card-text= "#{event_date_format(event.start_date)} - #{event_date_format(event.end_date)}"
-      %p.card-text
-        = "#{event.attends.count} going"
-        - if attendee(event)
-          - if event_ongoing?(event)
-            | Hurry up! You are an attendee at this now ongoing event.
-          - else
-            | You are going to this event.
-        - else
-          = "| Event is now ongoing. You can still attend, hurry up!" if event_ongoing?(event)
+    .all-events-notifs
+      = render "events/all_events_notifs", event: event
     - if can? :manage, event
       - if event_ended?(event)
         %p.card-text You successfully organized and ended this event. You may now delete it.
