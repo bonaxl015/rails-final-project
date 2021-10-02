@@ -1,0 +1,3 @@
+:plain
+  $("#like-unlike-#{session[:post_index]}").find(".post-like").replaceWith("#{escape_javascript( render partial: "likes/like", locals: { post: @post, post_index: session[:post_index] })}");
+  $("#post-#{session[:post_index]}-like-count").find(".post-like-content").replaceWith("#{escape_javascript( render partial: "likes/like_count", locals: { post: @post, post_index: session[:post_index] })}");

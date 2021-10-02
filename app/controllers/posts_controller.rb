@@ -26,7 +26,7 @@ class PostsController < ApplicationController
   end
 
   def edit
-    session[:index] = params[:index]
+    session[:post_index] = params[:post_index]
     respond_to do |format|
       format.html
       format.js

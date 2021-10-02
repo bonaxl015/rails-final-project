@@ -11,8 +11,8 @@
               .no-post-text No posts to show
         - else
           #post-display
-            - @posts.each_with_index do |post, index|
-              = render partial: "post_display", locals: { post: post, index: index + 1 }
+            - @posts.each_with_index do |post, post_index|
+              = render partial: "all_posts/display", locals: { post: post, post_index: post_index + 1 }
 
       -# Sidebar
       .col-4

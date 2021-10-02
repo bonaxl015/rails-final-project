@@ -4,12 +4,18 @@ class RelationshipsController < ApplicationController
 
   def create
     current_user.follow(@user)
-    redirect_back(fallback_location: posts_path)
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: posts_path) }
+      format.js
+    end
   end
 
   def destroy
     current_user.unfollow(@user)
-    redirect_back(fallback_location: posts_path)
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: posts_path) }
+      format.js
+    end
   end
 
   private

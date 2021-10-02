@@ -1,0 +1,4 @@
+:plain
+  $(".delete-comment").bind("ajax:success", function() {
+    $(this).closest(".comment-layout").remove();
+  });

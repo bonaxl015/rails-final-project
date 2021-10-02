@@ -1,0 +1,8 @@
+:plain
+  $("#comment-display-post-#{@post.id}").append("#{escape_javascript( render partial: "comments/comment_display", locals: { comment: @comment, index: @comments_count + 1 })}");
+  setTimeout(function() 
+  {
+    $("#user-comment-#{@post.id}").val("");
+    $("#comment-submit-#{@post.id}").prop("disabled", true);
+  }, 50);
+  

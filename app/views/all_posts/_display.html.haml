@@ -1,4 +1,4 @@
-.post-card(id="post-item-#{index}")
+.post-card(id="post-item-#{post_index}")
   .post-text
     .d-flex.justify-content-between
       .d-flex
@@ -12,9 +12,9 @@
           .distance-date= distance_of_time_posted_in_words(post.created_at)
       .post-edit-delete
         - if post.user.username == current_user.username
-          = link_to edit_post_path(id: post.id, index: index), class: "text-space edit-post", remote: true, "data-bs-toggle" => "modal", "data-bs-target" => "#edit-post-#{index}-modal" do
+          = link_to edit_post_path(id: post.id, post_index: post_index), class: "text-space edit-post", remote: true, "data-bs-toggle" => "modal", "data-bs-target" => "#edit-post-#{post_index}-modal" do
             %i.fa.fa-edit
-          .modal.fade(id="edit-post-#{index}-modal" tabindex="-1" aria-labelledby="edit-post-title" aria-hidden="true")
+          .modal.fade(id="edit-post-#{post_index}-modal" tabindex="-1" aria-labelledby="edit-post-title" aria-hidden="true")
             .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
               .modal-content
           = link_to post, method: :delete, remote: true, class: "text-space delete-post" do
@@ -26,14 +26,8 @@
   -# Like Button
   .row.container-margin-top
     .col-6
-      - if liker(post)
-        = button_to post_like_path(post, liker(post)), method: :delete, class: "btn btn-maroon btn-wide btn-like-comment" do
-          %i.far.fa-thumbs-up
-          Unlike
-      - else
-        = button_to post_likes_path(post), method: :post, class: "btn btn-plain btn-wide btn-like-comment" do
-          %i.far.fa-thumbs-up
-          Like
+      %div(id="like-unlike-#{post_index}")
+        = render partial: "likes/like", locals: { post: post, post_index: post_index }
     .col-6
       .btn.btn-plain.btn-wide.btn-like-comment.btn-comment
         %i.far.fa-comment
@@ -42,11 +36,12 @@
   -# Comment Section
   .comment-box
     .d-flex.justify-content-between
-      - unless post.likes.count == 0
-        .post-likes(type="button" data-bs-toggle="modal" data-bs-target="#likers-#{index}-modal")= "#{pluralize(post.likes.count, "like")}"
-        = render "layouts/likers_modal", post: post, index: index
+      %div(id="post-#{post_index}-like-count")
+        = render partial: "likes/like_count", locals: { post: post, post_index: post_index }
       .comment-toggle View Comments
     .comment-display.hidden
-      = render "posts/comments", post: post
+      %div(id="comment-display-post-#{post.id}")
+        - post.comments.each_with_index do |comment, comment_index|
+          = render partial: "comments/comment_display", locals: { comment: comment, comment_index: comment_index }
   .comment-form
     = render "comments/comment_form", post: post
