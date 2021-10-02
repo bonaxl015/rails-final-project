@@ -1,0 +1,34 @@
+.card.m-2
+  .card-body
+    .float-end
+      - if can? :manage, event
+        - unless event_ended?(event)
+          = link_to edit_event_path(event), class: "me-2", remote: true, "data-bs-toggle" => "modal", "data-bs-target" => "#edit-event-#{index}-modal" do
+            %i.fas.fa-edit
+            Edit
+          .modal.fade(id="edit-event-#{index}-modal" tabindex="-1" aria-labelledby="edit-event-title" aria-hidden="true")
+            .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+              .modal-content
+        = link_to event, method: :delete, data: { confirm: 'Are you sure?' } do
+          %i.fas.fa-trash-alt
+          Delete
+    %h5.a.card-title(type="button" data-bs-toggle="modal" data-bs-target="#event-#{index}-modal")= event.name
+    = render "layouts/event_modal", event: event, index: index
+    - if event_ended?(event)
+      %p.card-text= "Event already ended. #{event.attends.count} have gone to this event."
+    - else
+      %p.card-text= "#{event_date_format(event.start_date)} - #{event_date_format(event.end_date)}"
+      %p.card-text
+        = "#{event.attends.count} going"
+        - if attendee(event)
+          - if event_ongoing?(event)
+            | Hurry up! You are an attendee at this now ongoing event.
+          - else
+            | You are going to this event.
+        - else
+          = "| Event is now ongoing. You can still attend, hurry up!" if event_ongoing?(event)
+    - if can? :manage, event
+      - if event_ended?(event)
+        %p.card-text You successfully organized and ended this event. You may now delete it.
+      - else
+        %p.card-text You are organizing this event.
