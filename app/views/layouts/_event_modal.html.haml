@@ -23,22 +23,6 @@
               %p Event already ended.
           - else
             - unless can? :manage, event
-              - if attendee(event)
-                - if event_ongoing?(event)
-                  %p Hurry up! You are an attendee at this now ongoing event.
-                - else
-                  %p You are going to this event.
-                = button_to 'Cancel', event_attend_path(event, attendee(event)), method: :delete, class: "btn btn-maroon"
-              - else
-                %p= "Event is now ongoing. You can still attend, hurry up!" if event_ongoing?(event)
-                = button_to 'Attend', event_attends_path(event), method: :post, class: "btn btn-maroon"
-        .event-details-modal
-          - if event.attends.count == 0
-            %p This event does not have any attendees yet.
-          - else
-            - event.attends.each do |attendee|
-              - if can? :manage, event
-                %p.d-inline-block= full_name(attendee.user)
-                .d-inline-block= button_to 'Kick', event_attend_path(event, kick_attendee(event, attendee.user.id)), method: :delete, class: "btn btn-maroon" unless event_ended?(event)
-              - else
-                %p= full_name(attendee.user)
+              = render "layouts/attend", event: event
+        .event-details-modal.attendees-modal
+          = render "layouts/attendees", event: event
