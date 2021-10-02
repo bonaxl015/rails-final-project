@@ -4,8 +4,8 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[edit update destroy]
 
   def index
-    @user_events = Event.where(user_id: current_user)
-    @events = Event.all.includes(:user)
+    @user_events = Event.where(user_id: current_user).order(created_at: :desc)
+    @events = Event.all.includes(:user).order(created_at: :desc)
   end
 
   def new
