@@ -1,8 +1,8 @@
 .modal-header
-  %h5.modal-title
+  %h5.modal-title.form-modal-title
   %button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
 .modal-body
-  = form_with model: @event do |f|
+  = form_with model: @event, local: false do |f|
     .form-floating
       = f.text_field :name, class: "form-control", placeholder: "Event"
       = f.label :name
