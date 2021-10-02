@@ -1,6 +1,6 @@
 :plain
   $("#new-event-modal").find(".modal-content").html("#{escape_javascript(render 'form')}");
-  $("#new-event-modal").find(".modal-title").attr("id", "new-event-title");
+  $("#new-event-modal").find(".form-modal-title").attr("id", "new-event-title");
   $("#new-event-title").html("New Event");
   $("#start_datepicker, #end_datepicker").flatpickr({
     enableTime: true,
