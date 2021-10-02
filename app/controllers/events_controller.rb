@@ -30,6 +30,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
         format.html { redirect_to events_path, notice: 'Event was successfully created.' }
+        format.js
       else
         format.html { redirect_to events_path, status: :unprocessable_entity }
       end
@@ -40,6 +41,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to events_path, notice: 'Event was successfully updated.' }
+        format.js
       else
         format.html { redirect_to events_path, status: :unprocessable_entity }
       end
