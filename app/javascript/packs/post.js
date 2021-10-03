@@ -22,9 +22,10 @@ $(function () {
 
   $(".comment-toggle").on("click", function () {
     $(this).closest(".comment-box").find(".comment-display").toggle("slow");
-    if ($(".comment-toggle").text() == "View Comments")
-      $(".comment-toggle").text("Hide Comments");
-    else $(".comment-toggle").text("View Comments");
+    if ($(this).text() == "View Comments")
+      $(this).text("Hide Comments");
+    else if ($(this).text() == "Hide Comments")
+      $(this).text("View Comments");
   });
 
   $(".btn-comment").on("click", function () {
