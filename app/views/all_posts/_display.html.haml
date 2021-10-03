@@ -38,7 +38,7 @@
     .d-flex.justify-content-between
       %div(id="post-#{post_index}-like-count")
         = render partial: "likes/like_count", locals: { post: post, post_index: post_index }
-      .comment-toggle View Comments
+      .comment-toggle(id="comment-toggle-#{post_index}") View Comments
     .comment-display.hidden
       %div(id="comment-display-post-#{post.id}")
         - post.comments.each_with_index do |comment, comment_index|
