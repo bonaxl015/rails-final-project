@@ -25,9 +25,9 @@ class RegistrationsController < Devise::RegistrationsController
 
   def response_to_sign_up_failure(resource)
     if !check_attributes(resource)
-      redirect_to root_path, alert: "Please fill in the form"
+      redirect_to root_path, alert: 'Please fill in the form'
     elsif User.pluck(:email).include? resource.email
-      redirect_to root_path, alert: "Email already exists. Please use a different one."
+      redirect_to root_path, alert: 'Email already exists. Please use a different one.'
     end
   end
 
