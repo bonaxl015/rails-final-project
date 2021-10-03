@@ -21,12 +21,22 @@ RSpec.describe 'Attends', type: :request do
       post event_attends_path(event), params: { attend: attributes }
     end
 
+    it 'creates an attend' do
+      expect(Attend.find_by(attributes)).not_to eq(nil)
+    end
+
     include_examples 'redirects back'
   end
 
   describe 'DELETE /destroy' do
     before do
-      delete event_attend_path(event, attend), params: { attend: attributes }
+      delete event_attend_path(event, attend)
+    end
+
+    it 'deletes the attend' do
+      expect do
+        attend.destroy
+      end.to change(Attend, :count).by(-1)
     end
 
     include_examples 'redirects back'

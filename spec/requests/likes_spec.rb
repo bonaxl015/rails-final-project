@@ -25,6 +25,10 @@ RSpec.describe 'Likes', type: :request do
       post post_likes_path(faux_post), params: { like: attributes }
     end
 
+    it 'creates a like' do
+      expect(Like.find_by(attributes)).not_to eq(nil)
+    end
+
     include_examples 'redirects back'
   end
 
@@ -33,6 +37,12 @@ RSpec.describe 'Likes', type: :request do
 
     before do
       delete post_like_path(faux_post, like), params: { like: attributes }
+    end
+
+    it 'creates a like' do
+      expect do
+        like.destroy
+      end.to change(Like, :count).by(-1)
     end
 
     include_examples 'redirects back'

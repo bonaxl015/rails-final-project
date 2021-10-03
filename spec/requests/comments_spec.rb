@@ -25,6 +25,12 @@ RSpec.describe 'Comments', type: :request do
       post post_comments_path(faux_post), params: { comment: attributes }
     end
 
+    it 'creates a comment' do
+      expect do
+        post post_comments_path(faux_post), params: { comment: attributes }
+      end.to change(Comment, :count).by(1)
+    end
+
     include_examples 'redirects to posts'
   end
 
@@ -32,7 +38,12 @@ RSpec.describe 'Comments', type: :request do
     include_context 'when user signed in'
 
     before do
-      delete post_comment_path(faux_post, comment), params: { comment: attributes }
+      delete post_comment_path(faux_post, comment)
+    end
+
+    it 'deletes the comment' do
+      comment.destroy
+      expect(Comment.find_by(attributes)).to eq(nil)
     end
 
     include_examples 'redirects to posts'

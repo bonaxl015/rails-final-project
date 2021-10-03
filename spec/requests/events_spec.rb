@@ -62,6 +62,12 @@ RSpec.describe 'Events', type: :request do
         post events_path, params: { event: valid_attributes }
       end
 
+      it 'creates an event' do
+        expect do
+          post events_path, params: { event: valid_attributes }
+        end.to change(Event, :count).by(1)
+      end
+
       it 'redirects to events' do
         expect(response).to redirect_to(events_path)
       end
@@ -70,6 +76,12 @@ RSpec.describe 'Events', type: :request do
     context 'with invalid parameters' do
       before do
         post events_path, params: { event: invalid_attributes }
+      end
+
+      it 'does not create an event' do
+        expect do
+          post events_path, params: { event: invalid_attributes }
+        end.to change(Event, :count).by(0)
       end
 
       it 'renders unprocessable entity response' do
@@ -88,12 +100,22 @@ RSpec.describe 'Events', type: :request do
         patch event_path(event), params: { event: new_attributes }
       end
 
+      it 'updates the event' do
+        event.update(new_attributes)
+        expect(Event.find_by(new_attributes)).not_to eq(nil)
+      end
+
       include_examples 'redirects to base url'
     end
 
     context 'with invalid parameters' do
       before do
         patch event_path(event), params: { event: invalid_attributes }
+      end
+
+      it 'does update the event' do
+        event.update(invalid_attributes)
+        expect(Event.find_by(invalid_attributes)).to eq(nil)
       end
 
       include_examples 'redirects to base url'
@@ -105,6 +127,12 @@ RSpec.describe 'Events', type: :request do
 
     before do
       delete event_path(event)
+    end
+
+    it 'deletes the event' do
+      expect do
+        event.destroy
+      end.to change(Event, :count).by(-1)
     end
 
     include_examples 'redirects to base url'
