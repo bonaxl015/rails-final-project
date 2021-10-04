@@ -16,9 +16,7 @@
               %div= "Joined #{distance_of_time_posted_in_words(user.created_at)}"
           .float-end
             - unless user == current_user
-              - if current_user.following?(user)
-                = link_to "Unfollow", relationship_path(id: current_user.id, user_id: user.id), method: :delete, class: "btn btn-maroon"
-              - else
-                = link_to "Follow", relationships_path(id: current_user.id, user_id: user.id), method: :post, class: "btn btn-light btn-outline"
+              .follow-user-button(id="follow-user-button-#{user.username}")
+                = render partial: "relationships/follow_button", locals: { user: user }
   - else
     %h4= "No result for '#{@user_query}'"
