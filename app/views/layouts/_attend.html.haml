@@ -1,0 +1,10 @@
+.wrap-attend-btn
+  - if attendee(event)
+    - if event_ongoing?(event)
+      %p Hurry up! You are an attendee at this now ongoing event.
+    - else
+      %p You are going to this event.
+    = button_to 'Cancel', event_attend_path(event, attendee(event)), method: :delete, class: "btn btn-maroon", remote: true
+  - else
+    %p= "Event is now ongoing. You can still attend, hurry up!" if event_ongoing?(event)
+    = button_to 'Attend', event_attends_path(event), method: :post, class: "btn btn-maroon", remote: true

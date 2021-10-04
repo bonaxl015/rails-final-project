@@ -48,12 +48,24 @@ RSpec.describe 'Posts', type: :request do
         post posts_path, params: { post: valid_attributes }
       end
 
+      it 'creates a post' do
+        expect do
+          post posts_path, params: { post: valid_attributes }
+        end.to change(Post, :count).by(1)
+      end
+
       include_examples 'redirects to posts'
     end
 
     context 'with invalid parameters' do
       before do
         post posts_path, params: { post: invalid_attributes }
+      end
+
+      it 'does not create a post' do
+        expect do
+          post posts_path, params: { post: invalid_attributes }
+        end.to change(Post, :count).by(0)
       end
 
       include_examples 'renders unprocessable entity response'
@@ -80,12 +92,22 @@ RSpec.describe 'Posts', type: :request do
         patch post_path(faux_post), params: { post: new_attributes }
       end
 
+      it 'updates the post' do
+        faux_post.update(new_attributes)
+        expect(Post.find_by(new_attributes)).not_to eq(nil)
+      end
+
       include_examples 'redirects to posts'
     end
 
     context 'with invalid parameters' do
       before do
         patch post_path(faux_post), params: { post: invalid_attributes }
+      end
+
+      it 'does not update the post' do
+        faux_post.update(invalid_attributes)
+        expect(Post.find_by(invalid_attributes)).to eq(nil)
       end
 
       include_examples 'renders unprocessable entity response'
@@ -97,6 +119,11 @@ RSpec.describe 'Posts', type: :request do
 
     before do
       delete post_path(faux_post)
+    end
+
+    it 'deletes the post' do
+      faux_post.destroy
+      expect(Post.find_by(valid_attributes)).to eq(nil)
     end
 
     include_examples 'redirects to posts'

@@ -1,0 +1,10 @@
+.wrap-attendees
+  - if event.attends.count == 0
+    %p This event does not have any attendees yet.
+  - else
+    - event.attends.each do |attendee|
+      - if can? :manage, event
+        %p.d-inline-block= full_name(attendee.user)
+        .d-inline-block= button_to 'Kick', event_attend_path(event, kick_attendee(event, attendee.user.id)), method: :delete, class: "btn btn-maroon" unless event_ended?(event)
+      - else
+        %p= full_name(attendee.user)

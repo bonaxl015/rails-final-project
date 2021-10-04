@@ -1,9 +1,28 @@
 :plain
   $(".modal.show").find(".modal-content").html("#{escape_javascript(render 'form')}");
-  $(".modal.show").find(".modal-title").attr("id", "edit-event-title");
-  $("#edit-event-title").html("Edit Event");
+  $(".modal.show").find(".form-modal-title").attr("id", "edit-event-title");
+  $(".modal.show").closest(".card").addClass("to-edit");
+
+  $(".card-title").filter(function () {
+    return $(this).text() == $(".modal.show").find("#event_name").val();
+  }).closest(".card").addClass("to-edit");
+
+  $(".form-modal-title").html("Edit Event");
+
   $("#start_datepicker, #end_datepicker").flatpickr({
     enableTime: true,
     dateFormat: "D, d M Y H:i",
     minDate: new Date().fp_incr(1)
   });
+
+  $(".btn-close").on("click", function () {
+    if ($(this).closest(".card").hasClass("to-edit")) {
+      $(this).closest(".card").removeClass("to-edit");
+    }
+  });
+
+  $(window).on("click", function () {
+    if (!$(".modal").hasClass("show")) {
+      $(".modal").closest(".card").removeClass("to-edit");
+    }
+  })

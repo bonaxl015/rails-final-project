@@ -1,11 +1,4 @@
-Attend.delete_all
-Event.delete_all
-Comment.delete_all
-Like.delete_all
-Post.delete_all
-Like.delete_all
-UserRole.delete_all
-User.delete_all
+User.destroy_all
 Role.delete_all
 
 admin = User.create(  email: 'admin@example.com',
