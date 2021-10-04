@@ -33,7 +33,7 @@ FactoryBot.define do
       end
 
       after(:create) do |post, evaluator|
-        create_list(:comment, evaluator.likes_count, post: post)
+        create_list(:like, evaluator.likes_count, post: post)
         post.reload
       end
     end
