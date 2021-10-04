@@ -142,7 +142,7 @@ RSpec.describe 'Posts', type: :request do
   context 'when user not signed in' do
     shared_examples 'redirects to home' do
       it 'redirects to home' do
-        expect(response).to redirect_to(static_home_path)
+        expect(response).to redirect_to(root_path)
       end
     end
 

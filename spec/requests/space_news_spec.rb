@@ -36,7 +36,7 @@ RSpec.describe 'SpaceNews', type: :request do
       end
 
       it 'redirects to home' do
-        expect(response).to redirect_to(static_home_path)
+        expect(response).to redirect_to(root_path)
       end
     end
   end

@@ -17,8 +17,8 @@ RSpec.describe 'Registrations', type: :request do
         post '/users', params: { user: attr_strat(:user, :invalid_attributes) }
       end
 
-      it 'renders a successful response' do
-        expect(response).to be_successful
+      it 'redirects to home' do
+        expect(response).to redirect_to(root_path)
       end
     end
   end
