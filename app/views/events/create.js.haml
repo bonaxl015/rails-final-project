@@ -1,0 +1,6 @@
+:plain
+  $(".all-events").find(".d-flex").prepend("#{escape_javascript(render "all_events", event: @event, index: rand(10**10))}");
+  $(".my-events").find(".d-flex").prepend("#{escape_javascript(render "my_events", event: @event, index: rand(10**10))}");
+  $(".modal.show").css("display", "none");
+  $(".modal.show").removeClass("show");
+  $(".modal-backdrop").remove();

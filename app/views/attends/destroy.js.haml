@@ -1,0 +1,6 @@
+:plain
+  $(".modal.show").find(".wrap-attend-btn").html("#{escape_javascript(render 'layouts/attend', event: @event)}");
+  $(".modal.show").find(".wrap-attendees").html("#{escape_javascript(render 'layouts/attendees', event: @event)}");
+  $(".modal.show + .all-events-notifs").html("#{escape_javascript(render 'events/all_events_notifs', event: @event)}");
+  $(".event-reminders").find(".d-flex").html("#{escape_javascript(render 'events/event_reminders', event: @event, index: @index)}");
+  $(".posts-events-notifs").html("#{escape_javascript(render 'layouts/posts_events_notifs', event: @event)}");

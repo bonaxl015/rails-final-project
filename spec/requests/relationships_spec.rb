@@ -16,12 +16,24 @@ RSpec.describe 'Relationships', type: :request do
       post relationships_path, params: { relationship: attributes }
     end
 
+    it 'creates a relationship' do
+      expect do
+        create(:relationship, attributes)
+      end.to change(Relationship, :count).by(1)
+    end
+
     include_examples 'redirects to home'
   end
 
   describe 'DELETE /destroy' do
     before do
-      delete relationship_path(relationship), params: { attend: attributes }
+      delete relationship_path(relationship)
+    end
+
+    it 'deletes the relationship' do
+      expect do
+        relationship.destroy
+      end.to change(Relationship, :count).by(-1)
     end
 
     include_examples 'redirects to home'
