@@ -5,13 +5,13 @@
         - unless event_ended?(event)
           = link_to edit_event_path(event), class: "me-2", remote: true, "data-bs-toggle" => "modal", "data-bs-target" => "#edit-event-#{index}-modal" do
             %i.fas.fa-edit
-            Edit
+            %span.d-none.d-sm-inline Edit
           .modal.fade(id="edit-event-#{index}-modal" tabindex="-1" aria-labelledby="edit-event-title" aria-hidden="true")
             .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
               .modal-content
         = link_to event, method: :delete, data: { confirm: 'Are you sure?' } do
           %i.fas.fa-trash-alt
-          Delete
+          %span.d-none.d-sm-inline Delete
     %h5.a.card-title(type="button" data-bs-toggle="modal" data-bs-target="#event-#{index}-modal")= event.name
     = render "layouts/event_modal", event: event, index: index
     .all-events-notifs
