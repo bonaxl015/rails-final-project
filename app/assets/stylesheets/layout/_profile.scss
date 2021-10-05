@@ -37,9 +37,11 @@
 }
 
 .img-profile {
-  height: 200px;
-  width: 200px;
   border-radius: 50%;
+
+  @include mq(lgup) {
+    width: 200px;
+  }
 }
 
 .img-thumb {
