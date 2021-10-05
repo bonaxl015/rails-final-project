@@ -1,12 +1,18 @@
 .home-bg
-  .row
-    .col-5.full-height-container
-      .d-flex.justify-content-center.align-items-center.full-height-container
-        .user-form-container
-          #sign-in-form.hidden
-            = render 'sign_in'
-          #sign-up-form
-            = render 'sign_up'
-    .col-2
-    .col-5.full-height-container
-      .home-text-display Connect with Astronauts, Astrophiles and Astronomy Enthusiasts around the universe
+  .container-fluid
+    .row.full-height-container
+      .col-sm-8.col-md-6.col-lg-5.col-xxl-5.order-2.order-xxl-0
+        .d-flex.justify-content-center.align-items-center.flex-column.h-100
+          = render "layouts/alerts"
+          .user-form-container.mt-2
+            #sign-in-form.hidden
+              = render 'sign_in'
+            #sign-up-form
+              = render 'sign_up'
+      .col-2.col-xxl-2.order-3.order-xxl-0
+      .col-12.col-xxl-5.order-1.order-xxl-0
+        .home-text-display.d-flex.align-items-center.h-100
+          %p
+            Connect with Astronauts, Astrophiles and Astronomy Enthusiasts around the
+            %br
+            universe

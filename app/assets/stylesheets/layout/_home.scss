@@ -1,11 +1,4 @@
 .home-bg {
-  position: fixed;
-  margin: 0;
-  padding: 0;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
   background-image: url("/space-rocket.gif");
   background-repeat: no-repeat;
   background-size: cover;
@@ -13,13 +6,40 @@
 }
 
 .home-text-display {
-  position: relative;
   width: 80%;
   color: #FFF;
   font-size: 2.4rem;
   font-weight: 500;
   margin-left: 50px;
-  top: 32%;
+
+  @include mq(max, 1500px) {
+    margin-left: auto;
+  }
+
+  @include mq(xl) {
+    margin-right: auto;
+    width: 85%;
+  }
+
+  @include mq(lg) {
+    width: 96%;
+  }
+
+  @include mq(xs) {
+    font-size: 2rem;
+  }
+
+  @include mq(xxs) {
+    font-size: 1.5rem;
+  }
+
+  br {
+    display: none;
+
+    @include mq(min-max, 768px, 992px) {
+      display: block;
+    }
+  }
 }
 
 .user-form-container {
@@ -28,6 +48,10 @@
   background-color: #800000;
   padding: 20px;
   border-radius: 10px;
+
+  @include mq(xxs) {
+    width: 280px;
+  }
 }
 
 .user-form-title {
@@ -39,7 +63,7 @@
 }
 
 .full-height-container {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .hidden {
