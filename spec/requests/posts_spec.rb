@@ -132,11 +132,21 @@ RSpec.describe 'Posts', type: :request do
   describe 'GET /user_search' do
     include_context 'when user signed in'
 
-    before do
-      get user_search_posts_path
+    context 'with valid parameters' do
+      before do
+        get user_search_posts_path, params: { username: create(:user).username, commit: 'Search' }
+      end
+
+      include_examples 'renders a successful response'
     end
 
-    include_examples 'renders a successful response'
+    context 'with invalid parameters' do
+      before do
+        get user_search_posts_path, params: { username: Faker::Lorem.characters, commit: 'Search' }
+      end
+
+      include_examples 'renders a successful response'
+    end
   end
 
   context 'when user not signed in' do
@@ -162,14 +172,6 @@ RSpec.describe 'Posts', type: :request do
       it 'renders unauthorized response' do
         expect(response).to have_http_status(:unauthorized)
       end
-    end
-
-    describe 'GET /user_search' do
-      before do
-        get user_search_posts_path
-      end
-
-      include_examples 'redirects to home'
     end
   end
 end
