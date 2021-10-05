@@ -1,12 +1,68 @@
+@import "../abstracts/*";
+
 .bg-maroon {
   background-color: #800000;
 }
 
-.nav-link {
-  text-decoration: none;
-  color: white;
-  &:hover {
-    color: #fff;
-    transform: scale(1.1);
+.navbar-toggler {
+  z-index: z("nav-btn");
+  border-color: #fff !important;
+}
+
+.d-sm-flex {
+  @include mq(xxs) {
+    width: 70%;
+  }
+}
+
+.navbar-collapse {
+  @include mq(md) {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    background-color: hsla(0, 0%, 0%, 0.5);
+    text-align: center;
+    transition: 0.25s;
+
+    &.collapsing {
+      width: 0;
+      height: 100%;
+    }
+  }
+
+  .navbar-nav {
+    @include mq(md) {
+      min-height: 100vh;
+      background-color: #800000;
+      width: 60%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .nav-item {
+      @include mq(md) {
+        border-bottom: 2px solid #fff;
+        width: 75%;
+        margin: 0 auto;
+        padding: 20px 0;
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+
+      .nav-link {
+        text-decoration: none;
+        color: white;
+
+        @include mq(lgup) {
+          &:hover {
+            color: #fff;
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
   }
 }
