@@ -6,7 +6,7 @@ RSpec.describe 'SearchingSpaceNews', type: :system do
 
     sign_in create(:user)
     visit posts_path
-    find('a[href="/space_news"]').click
+    first('a[href="/space_news"]').click
     fill_in 'Search Article', with: 'SpaceX'
 
     within('form[action="/space_news/search"]') do
