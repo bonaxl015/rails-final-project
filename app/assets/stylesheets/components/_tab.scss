@@ -19,3 +19,12 @@
     color: #495057;
   }
 }
+
+#events-nav {
+  .align-self-center {
+    @include mq(sm) {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  }
+}
