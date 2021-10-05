@@ -1,11 +1,30 @@
 .news-pagination {
   cursor: default;
+
+  .pagination {
+    @include mq(lg) {
+      justify-content: center;
+    }
+
+    .previous_page {
+      margin-right: 4em;
+    }
+
+    a:not(.next_page),
+    .gap,
+    em {
+      @include mq(sm) {
+        display: none;
+      }
+    }
+  }
  }
   .news-pagination a, .news-pagination span, .news-pagination em {
     padding: 0.2em 0.5em;
     display: block;
     float: left;
-    margin-right: 1px; }
+    margin-right: 1px;
+  }
   .news-pagination .disabled {
     color: #999999;
     border: 1px solid #dddddd; }
