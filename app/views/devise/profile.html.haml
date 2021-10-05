@@ -20,7 +20,7 @@
             = link_to "My Events", events_path(tab: "my_events"), class: "btn btn-maroon my-1"
             = link_to "Edit Profile", edit_user_registration_path, class: "btn btn-maroon"
           - else
-            #follow-user-button.mt-1
+            .follow-user-button.mt-1(id="follow-user-button-#{@user.username}")
               = render partial: "relationships/follow_button", locals: { user: @user }
 
     -# User Posts
