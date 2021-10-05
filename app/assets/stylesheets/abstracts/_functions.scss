@@ -1,0 +1,9 @@
+@import "variables";
+
+@function z($name) {
+  @if index($z-items, $name) {
+    @return (length($z-items) - index($z-items, $name)) + 1;
+  } @else {
+    @return null;
+  }
+}
