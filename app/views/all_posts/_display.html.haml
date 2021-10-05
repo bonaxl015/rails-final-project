@@ -17,7 +17,7 @@
           .modal.fade(id="edit-post-#{post_index}-modal" tabindex="-1" aria-labelledby="edit-post-title" aria-hidden="true")
             .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
               .modal-content
-          = link_to post, method: :delete, remote: true, class: "text-space delete-post" do
+          = link_to post, method: :delete, data: { confirm: "Are you sure?" }, remote: true, class: "text-space delete-post" do
             %i.fa.fa-trash
     .caption= post.caption
   - if post.image.present?

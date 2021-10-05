@@ -11,6 +11,6 @@
         .distance-date= distance_of_time_posted_in_words(comment.created_at)
     .comment-delete
       - if comment.user.username == current_user.username
-        = link_to post_comment_url(post_id: comment.post_id, id: comment.id), remote: true, method: :delete, class: "text-space delete-comment" do
+        = link_to post_comment_url(post_id: comment.post_id, id: comment.id), remote: true, method: :delete, data: { confirm: "Are you sure?" }, class: "text-space delete-comment" do
           %i.fa.fa-trash
   .comment-content= comment.content
