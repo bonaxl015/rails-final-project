@@ -2,14 +2,14 @@
   .container
     -# User Information
     .row.profile-container
-      .col-3
+      .col-4.col-md-3
         .d-flex.justify-content-center
           .profile-image
             - if @user.profile_pic.present?
               = image_tag @user.profile_pic.url, class: "img img-fluid img-profile"
             - else
               = image_tag "/default-user.jpg", class: "img img-fluid img-profile"
-      .col-9
+      .col-8.col-md-9
         .profile-full-name= @user.full_name
         .profile-username= @user.username
         #user-profile-stats
@@ -17,15 +17,15 @@
         .profile-buttons
           .btn.btn-maroon#relationships-btn(type="button" data-bs-toggle="modal" data-bs-target="#relationships-modal") Followers and Following
           - if @user == current_user
-            = link_to "My Events", events_path(tab: "my_events"), class: "btn btn-maroon"
+            = link_to "My Events", events_path(tab: "my_events"), class: "btn btn-maroon my-1"
             = link_to "Edit Profile", edit_user_registration_path, class: "btn btn-maroon"
           - else
-            .follow-user-button(id="follow-user-button-#{@user.username}")
+            .follow-user-button.mt-1(id="follow-user-button-#{@user.username}")
               = render partial: "relationships/follow_button", locals: { user: @user }
 
     -# User Posts
     .row
-      .col-8
+      .col-lg-8
         - if @user_posts.empty?
           .post-card
             .post-text
@@ -35,7 +35,7 @@
             = render partial: "all_posts/display", locals: { post: post, post_index: post_index + 1 }
 
       -# Sidebar
-      .col-4
+      .col-4.d-none.d-lg-block
         -# Events Display
         - if @user == current_user
           .event-items

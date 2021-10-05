@@ -1,18 +1,29 @@
-.nav.navbar.navbar-dark.bg-maroon.sticky-top
+.nav.navbar.navbar-dark.bg-maroon.sticky-top.navbar-expand-lg
   .container-fluid.container
-    .d-flex
+    .d-sm-flex
       - if user_signed_in?
         = link_to 'Stellargram', posts_path, class: 'navbar-brand'
       - else
         = link_to 'Stellargram', static_home_path, class: 'navbar-brand'
-      = form_with url: user_search_posts_path, method: "get" do |f|
+      = form_with url: user_search_posts_path, method: "get", class: "mt-2 mt-sm-0" do |f|
         .d-flex
           = f.text_field :username, class: "form-control me-2", id: "user_search", placeholder: "Search user"
           = f.submit :Search, class: "btn btn-outline-light"
-    .d-flex
-      - if user_signed_in?
-        = link_to 'Home', posts_path, class: 'nav-link'
-        = link_to 'Profile', profile_path(current_user.username), class: 'nav-link'
-        = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'nav-link'
-      - else
-        = link_to 'Sign in', static_home_path, class: 'nav-link'
+    %button.navbar-toggler(type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation")
+      %span.navbar-toggler-icon
+    #navbar.collapse.navbar-collapse
+      %ul.navbar-nav.ms-auto
+        - if user_signed_in?
+          %li.nav-item
+            = link_to 'Home', posts_path, class: 'nav-link'
+          %li.nav-item
+            = link_to 'Profile', profile_path(current_user.username), class: 'nav-link'
+          %li.nav-item.d-block.d-lg-none
+            = link_to 'Events', events_path(tab: 'all_events'), class: 'nav-link'
+          %li.nav-item.d-block.d-lg-none
+            = link_to 'Space News', space_news_index_path, class: 'nav-link'
+          %li.nav-item
+            = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'nav-link'
+        - else
+          %li.nav-item
+            = link_to 'Sign in', static_home_path, class: 'nav-link'

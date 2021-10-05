@@ -4,8 +4,12 @@
 }
 
 .img-resize {
-  height: 360px;
-  width: 400px;
+  height: 250px;
+
+  @include mq(xsup) {
+    height: 360px;
+    width: 400px;
+  }
 }
 
 .news-no-result {
