@@ -26,4 +26,7 @@
           = f.datetime_field :end_date, id: 'end_datepicker', class: "form-control", type: "", placeholder: "End Date"
           = f.label :end_date
     .d-flex.mt-3
-      = f.submit "Add Event", class: "btn btn-maroon"
+      - if controller.action_name == 'new'
+        = f.submit "Add Event", class: "btn btn-maroon"
+      - else
+        = f.submit "Update Event", class: "btn btn-maroon"
