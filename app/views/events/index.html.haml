@@ -1,13 +1,13 @@
 .card.mt-3
   .card-body
     %ul#events-nav.nav.nav-tabs
-      %li.nav-item
+      %li.nav-item.order-2.order-md-0
         %button(id="all-events" class="h4 nav-link #{"active" if params[:tab] == "all_events" || params[:tab].nil?}") All Events
-      %li.nav-item
+      %li.nav-item.order-3.order-md-0
         %button(id="my-events" class="h4 nav-link #{"active" if params[:tab] == "my_events"}") My Events
-      %li.nav-item
+      %li.nav-item.order-4.order-md-0
         %button(id="event-reminders" class="h4 nav-link #{"active" if params[:tab] == "event_reminders"}") Event Reminders
-      .align-self-center.ms-auto.me-5
+      .align-self-center.ms-md-auto.me-lg-5.order-1.order-md-0
         = link_to new_event_path, class: "btn btn-maroon border-0", remote: true, "data-bs-toggle" => "modal", "data-bs-target" => "#new-event-modal" do
           %i.far.fa-calendar-alt
           Add Event
