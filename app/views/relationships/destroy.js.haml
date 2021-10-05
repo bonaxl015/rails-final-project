@@ -1,3 +1,3 @@
 :plain
-  $("#follow-user-button").find(".follow-button-container").replaceWith("#{escape_javascript( render partial: "relationships/follow_button", locals: { user: @user })}");
+  $("#follow-user-button-#{@user.username}").find(".follow-button-container").replaceWith("#{escape_javascript( render partial: "relationships/follow_button", locals: { user: @user })}");
   $("#user-profile-stats").find(".profile-stats").replaceWith("#{escape_javascript( render partial: "relationships/follow_count", locals: { user: @user })}");
