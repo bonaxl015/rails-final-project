@@ -23,7 +23,7 @@ Things you may want to cover:
 
 * ... -->
 
-Visit this [link](#paste-heroku-link-here) to view it on heroku
+Visit this [link](https://stellargram.herokuapp.com/) to view it on heroku
 
 _Check out our [ERD](https://drive.google.com/file/d/1T2OLmTJ3vEdbJ6g5pw2MIbsT9DWg3WZP/view?usp=sharing) to know how our models were architectured!_ 😎
 
@@ -59,10 +59,18 @@ rails db:create
 ```shell
 rails db:migrate
 rails db:seed
+```
 
-or
+or (skip "rails db:create")
 
-rails db:setup (skip "rails db:create")
+```shell
+rails db:setup
+```
+
+## How to run the Test Suite
+
+```shell
+bundle exec rspec
 ```
 
 ## Deployment Instructions
