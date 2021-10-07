@@ -31,7 +31,7 @@ class User < ApplicationRecord
   end
 
   def add_default_role
-    roles << Role.find_by(role: 'Ordinary')
+    roles << Role.find_or_create_by(role: 'Ordinary')
   end
 
   def should_generate_new_friendly_id?
