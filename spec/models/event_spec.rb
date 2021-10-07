@@ -18,6 +18,36 @@ RSpec.describe Event, type: :model do
     expect(Attend.find_by(event_id: event_with_attendees.id)).to eq(nil)
   end
 
+  describe '#name' do
+    it 'invalidates null' do
+      event.name = nil
+      event.valid?
+      expect(event.errors[:name].size).to eq(1)
+    end
+
+    context 'when not unique but case sensitive' do
+      before do
+        event.name = create(:event).name.upcase
+        event.valid?
+      end
+
+      it 'does not validate' do
+        expect(event.errors[:name].size).to eq(1)
+      end
+    end
+
+    context 'when not unique but not case sensitive' do
+      before do
+        event.name = create(:event).name
+        event.valid?
+      end
+
+      it 'does not validate' do
+        expect(event.errors[:name].size).to eq(1)
+      end
+    end
+  end
+
   describe '#start_date' do
     it 'invalidates null' do
       event.start_date = nil
