@@ -128,7 +128,7 @@ RSpec.describe User, type: :model do
       expect(user.errors[:username].size).to eq(1)
     end
 
-    context 'when unique but case sensitive' do
+    context 'when not unique but case sensitive' do
       before do
         user.username = create(:user).username.upcase
         user.valid?
@@ -139,7 +139,7 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context 'when unique but not case sensitive' do
+    context 'when not unique but not case sensitive' do
       before do
         user.username = create(:user).username
         user.valid?
