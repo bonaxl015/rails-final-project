@@ -21,10 +21,6 @@ RSpec.describe 'CreatingLikes', type: :system do
   end
 
   context 'when likes modal is closed' do
-    it 'shows unlike button' do
-      expect(page).to have_content('Unlike')
-    end
-
     it 'shows like count' do
       expect(page).to have_content('1 like')
     end
