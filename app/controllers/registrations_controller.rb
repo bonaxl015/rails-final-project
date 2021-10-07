@@ -42,4 +42,8 @@ class RegistrationsController < Devise::RegistrationsController
   def after_sign_up_path_for(_resource)
     posts_path
   end
+
+  def after_update_path_for(_resource)
+    sign_in_after_change_password? ? profile_path(current_user.username) : new_session_path(resource_name)
+  end
 end
