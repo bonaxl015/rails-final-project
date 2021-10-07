@@ -2,7 +2,8 @@ class Event < ApplicationRecord
   belongs_to :user
 
   has_many :attends, dependent: :destroy
-  validates :name, presence: true
+  validates :name, presence: true,
+                   uniqueness: { case_sensitive: false }
   validates :start_date, presence: true
   validates :end_date, presence: true
   validate :valid_start_date
