@@ -25,7 +25,7 @@ Things you may want to cover:
 
 Visit this [link](https://stellargram.herokuapp.com/) to view it on heroku
 
-_Check out our [ERD](https://drive.google.com/file/d/1T2OLmTJ3vEdbJ6g5pw2MIbsT9DWg3WZP/view?usp=sharing) to know how our models were architectured!_ 😎
+_Check out our [ERD](https://drive.google.com/file/d/1T2OLmTJ3vEdbJ6g5pw2MIbsT9DWg3WZP/view?usp=sharing) to know how our models were architectured!_ 🏛
 
 Note: Kindly check "[db/seeds.rb](https://github.com/bonaxl015/rails-final-project/blob/master/db/seeds.rb)" for initial data to assist you in exploring around the app.
 
