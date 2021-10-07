@@ -14,7 +14,7 @@ RSpec.describe 'CreatingComments', type: :system do
   end
 
   it 'shows created comment' do
-    within(".comment-layout") do
+    within('.comment-layout') do
       expect(page).to have_content(attributes[:content])
     end
   end
