@@ -13,11 +13,9 @@ RSpec.describe 'CreatingComments', type: :system do
     click_on 'Comment'
   end
 
-  it 'shows view comments button' do
-    expect(page).to have_content('View Comments')
-  end
-
   it 'shows created comment' do
-    expect(page).to have_content(attributes[:content])
+    within(".comment-layout") do
+      expect(page).to have_content(attributes[:content])
+    end
   end
 end
