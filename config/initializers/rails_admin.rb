@@ -40,4 +40,30 @@ RailsAdmin.config do |config|
   end
 
   config.parent_controller = 'ApplicationController'
+
+  config.model 'User' do
+    edit do
+      configure :reset_password_sent_at do
+        hide
+      end
+
+      configure :remember_created_at do
+        hide
+      end
+
+      configure :slug do
+        hide
+      end
+
+      configure :followed_users do
+        hide
+      end
+
+      configure :follower_users do
+        hide
+      end
+    end
+  end
+
+  config.included_models = ['User', Role, UserRole]
 end
