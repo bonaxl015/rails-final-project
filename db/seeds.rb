@@ -1,10 +1,6 @@
 User.destroy_all
 Role.delete_all
 
-admin_role = Role.create(role: 'Admin')
-moderator_role = Role.create(role: 'Moderator')
-Role.create(role: 'Ordinary')
-
 admin = User.create(  email: 'admin@example.com',
                       password: 'testtest',
                       password_confirmation: 'testtest',
@@ -46,6 +42,9 @@ ordinary3 = User.create( email: 'juan@example.com',
                          first_name: 'Juan',
                          last_name: 'Dela Cruz',
                          slug: 'juandcruz')
+
+admin_role = Role.create(role: 'Admin')
+moderator_role = Role.create(role: 'Moderator')
 
 UserRole.create( user_id: admin.id, role_id: admin_role.id )
 UserRole.create( user_id: admin.id, role_id: moderator_role.id )
