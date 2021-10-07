@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(_resource)
-    posts_path
+    current_user.roles.any? { |r| r.role == 'Admin' } ? rails_admin_path : posts_path
   end
 
   rescue_from CanCan::AccessDenied do |e|

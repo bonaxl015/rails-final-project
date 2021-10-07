@@ -8,7 +8,7 @@ class Ability
     #
     user ||= User.new # guest user (not logged in)
 
-    if user.roles.any? { |r| r[:role] == 'Admin' }
+    if user.roles.any? { |r| r.role == 'Admin' }
       can :manage, :all
     else
       can :manage, Event, user_id: user.id
