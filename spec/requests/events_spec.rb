@@ -58,10 +58,6 @@ RSpec.describe 'Events', type: :request do
     include_context 'when user signed in'
 
     context 'with valid parameters' do
-      before do
-        post events_path, params: { event: valid_attributes }
-      end
-
       it 'creates an event' do
         expect do
           post events_path, params: { event: valid_attributes }
@@ -69,6 +65,7 @@ RSpec.describe 'Events', type: :request do
       end
 
       it 'redirects to events' do
+        post events_path, params: { event: valid_attributes }
         expect(response).to redirect_to(events_path)
       end
     end
