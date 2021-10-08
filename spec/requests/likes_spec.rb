@@ -21,15 +21,16 @@ RSpec.describe 'Likes', type: :request do
   describe 'POST /create' do
     include_context 'when user signed in'
 
-    before do
-      post post_likes_path(faux_post), params: { like: attributes }
-    end
-
     it 'creates a like' do
-      expect(Like.find_by(attributes)).not_to eq(nil)
+      expect do
+        post post_likes_path(faux_post), params: { like: attributes }
+      end.to change(Like, :count).by(1)
     end
 
-    include_examples 'redirects back'
+    it 'redirects back' do
+      post post_likes_path(faux_post), params: { like: attributes }
+      expect(response).to redirect_to(posts_path)
+    end
   end
 
   describe 'DELETE /destroy' do
@@ -45,6 +46,8 @@ RSpec.describe 'Likes', type: :request do
       end.to change(Like, :count).by(-1)
     end
 
-    include_examples 'redirects back'
+    it 'redirects back' do
+      expect(response).to redirect_to(posts_path)
+    end
   end
 end

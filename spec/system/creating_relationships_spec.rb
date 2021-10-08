@@ -21,10 +21,6 @@ RSpec.describe 'CreatingRelationships', type: :system do
   end
 
   context 'when relationships modal is closed' do
-    it 'shows followers and following button' do
-      expect(page).to have_content('Followers and Following')
-    end
-
     it 'shows unfollow button' do
       expect(page).to have_content('Unfollow')
     end
