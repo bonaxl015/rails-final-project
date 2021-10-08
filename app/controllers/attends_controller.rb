@@ -2,6 +2,7 @@ class AttendsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_event
   before_action :find_attend, only: :destroy
+  include ApplicationHelper
   include AttendsHelper
   include EventsHelper
 
@@ -23,9 +24,10 @@ class AttendsController < ApplicationController
   def destroy
     return if event_ended?(@event)
 
-    @attend.destroy if @event.user_id == current_user.id
-
-    if already_attending?
+    if @event.user_id == current_user.id
+      @attend.destroy
+      flash[:notice] = "#{full_name(@attend.user)} was kicked out of the event."
+    elsif already_attending?
       @attend.destroy
     else
       flash[:notice] = 'You are already not attending this event.'
