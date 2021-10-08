@@ -27,12 +27,10 @@ class AttendsController < ApplicationController
     if @event.user_id == current_user.id
       @attend.destroy
       flash[:notice] = "#{full_name(@attend.user)} was kicked out of the event."
+    elsif already_attending?
+      @attend.destroy
     else
-      if already_attending?
-        @attend.destroy
-      else
-        flash[:notice] = 'You are already not attending this event.'
-      end
+      flash[:notice] = 'You are already not attending this event.'
     end
 
     respond_to do |format|
