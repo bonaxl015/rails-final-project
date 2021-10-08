@@ -1,7 +1,29 @@
 :plain
+  var CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/stellargram/image/upload";
+  var CLOUDINARY_UPLOAD_PRESET = "gis5e1pr";
+  var file = $('#image-file').prop('files')[0];
+  var formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
   $("#post-display").prepend("#{escape_javascript( render partial: "all_posts/display", locals: { post: @post, post_index: @posts_count + 1 })}");
-  
+
   setTimeout(function() {
+    if(file){
+      $.ajax({
+        type: "POST",
+        url: CLOUDINARY_URL,
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: formData,
+        success: function success(data) {
+          $("#post-item-#{@posts_count + 1}").find(".post-text").after(`<img class="img img-fluid img-fill" src=${data["secure_url"]}>`);
+        },
+        error: function error(request, _error) {}
+      });
+    }
+
     $("#caption").val("");
     $("#image-file").val("");
 
